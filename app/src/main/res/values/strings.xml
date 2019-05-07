@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+
+    <string name="no_internet_connection">Masalah jaringan, cek koneksi internet Anda dan silakan coba lagi</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_double_extra_small">2dp</dimen>
+    <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_big">21dp</dimen>
+    <dimen name="margin_extra_big">32dp</dimen>
+    <dimen name="margin_multi_extra_big">64dp</dimen>
+    <dimen name="margin_multi_double_extra_big">84dp</dimen>
+
+    <dimen name="divider">0.6dp</dimen>
+
+    <dimen name="logo_height">110dp</dimen>
+    <dimen name="logo_width">100dp</dimen>
+
+    <dimen name="photo_size">64dp</dimen>
+
+    <dimen name="card_radius">2.5dp</dimen>
+    <dimen name="card_elevation">1.5dp</dimen>
+</resources>
