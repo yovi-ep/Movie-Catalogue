@@ -2,12 +2,10 @@ package com.yeputra.moviecatalogue.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by yovi.putra
@@ -22,21 +20,21 @@ public abstract class BaseActivity<presenter extends IBasePresenter>
     protected presenter presenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = initPresenter();
     }
 
     @Override
     protected void onDestroy() {
-        presenter.onDestroyPresenter();
+        if(presenter != null)
+            presenter.onDestroyPresenter();
         super.onDestroy();
         Log.d(TAG, "Activity destroy");
     }
 
     protected abstract presenter initPresenter();
 
-    @NotNull
     @Override
     public Context getContextView() {
         return this;

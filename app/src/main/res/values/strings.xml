@@ -1,5 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Movie Catalogue</string>
 
     <string name="no_internet_connection">Masalah jaringan, cek koneksi internet Anda dan silakan coba lagi</string>
+
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+    <array name="movies_icon">
+        <item>@drawable/poster_a_star</item>
+        <item>@drawable/poster_aquaman</item>
+        <item>@drawable/poster_avengerinfinity</item>
+        <item>@drawable/poster_birdbox</item>
+        <item>@drawable/poster_bohemian</item>
+        <item>@drawable/poster_bumblebee</item>
+        <item>@drawable/poster_creed</item>
+        <item>@drawable/poster_deadpool</item>
+        <item>@drawable/poster_dragon</item>
+        <item>@drawable/poster_dragonball</item>
+        <item>@drawable/poster_glass</item>
+        <item>@drawable/poster_hunterkiller</item>
+        <item>@drawable/poster_marrypopins</item>
+        <item>@drawable/poster_mortalengine</item>
+        <item>@drawable/poster_preman</item>
+        <item>@drawable/poster_robinhood</item>
+        <item>@drawable/poster_spiderman</item>
+        <item>@drawable/poster_thegirl</item>
+        <item>@drawable/poster_themule</item>
+        <item>@drawable/poster_venom</item>
+    </array>
+
+    <string-array name="movies_title">
+        <item>A Start Is Born</item>
+        <item>Aquaman</item>
+        <item>Avenger Infinity</item>
+        <item>Bird Box</item>
+        <item>Bohemian Rhapsody</item>
+        <item>Bumble Bee</item>
+        <item>Creed</item>
+        <item>The Dead Pool</item>
+        <item>How to Train Your Dragon</item>
+        <item>Super Dragon Ball Heroes</item>
+        <item>Glass</item>
+        <item>Hunter Killer</item>
+        <item>Mary Poppins Returns</item>
+        <item>Mortal Engine</item>
+        <item>Preman</item>
+        <item>Rupinder Gandhi 2: The Robinhood</item>
+        <item>Spiderman</item>
+        <item>The Girl in The Spiders Web</item>
+        <item>The Mule</item>
+        <item>Venom</item>
+    </string-array>
+
+    <string-array name="movies_description">
+        <item>Seasoned musician Jackson Maine discovers - and falls in love with - struggling artist Ally. She has just about given up on her dream to make it big as a singer - until Jack coaxes her into the spotlight. But even as Ally\'s career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.</item>
+        <item>Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm\'s half-human, half-Atlantean brother and true heir to the throne.</item>
+        <item>As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.</item>
+        <item>Five years after an ominous unseen presence drives most of society to suicide, a survivor and her two children make a desperate bid to reach safety.</item>
+        <item>Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock \'n\' roll band Queen in 1970. Hit songs become instant classics. When Mercury\'s increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess.</item>
+        <item>On the run in the year 1987, Bumblebee finds refuge in a junkyard in a small Californian beach town. Charlie, on the cusp of turning 18 and trying to find her place in the world, discovers Bumblebee, battle-scarred and broken. When Charlie revives him, she quickly learns this is no ordinary yellow VW bug.</item>
+        <item>The former World Heavyweight Champion Rocky Balboa serves as a trainer and mentor to Adonis Johnson, the son of his late friend and former rival Apollo Creed.</item>
+        <item>Dirty Harry Callahan returns for his final film adventure. Together with his partner Al Quan, he must investigate the systematic murder of actors and musicians. By the time Harry learns that the murders are a part of a sick game to predict the deaths of celebrities before they happen, it may be too late.</item>
+        <item>As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s reign as village chief is tested, both dragon and rider must make impossible decisions to save their kind.</item>
+        <item>Trunks returns from the future to train with Goku and Vegeta. However, it disappears without warning. Then the mysterious Fu bursts in, telling them that Trunks has been imprisoned in the Prison Planet, a mysterious complex in an unknown place in the universes. The group seeks the dragon balls to free Trunks, but an endless battle awaits them! Will Goku and the others rescue Trunks and escape the Prison Planet?</item>
+        <item>In a series of escalating encounters, security guard David Dunn uses his supernatural abilities to track Kevin Wendell Crumb, a disturbed man who has twenty-four personalities. Meanwhile, the shadowy presence of Elijah Price emerges as an orchestrator who holds secrets critical to both men.</item>
+        <item>Captain Glass of the USS “Arkansas” discovers that a coup d\'état is taking place in Russia, so he and his crew join an elite group working on the ground to prevent a war.</item>
+        <item>In Depression-era London, a now-grown Jane and Michael Banks, along with Michael\'s three children, are visited by the enigmatic Mary Poppins following a personal loss. Through her unique magical skills, and with the aid of her friend Jack, she helps the family rediscover the joy and wonder missing in their lives.</item>
+        <item>Many thousands of years in the future, Earth’s cities roam the globe on huge wheels, devouring each other in a struggle for ever diminishing resources. On one of these massive traction cities, the old London, Tom Natsworthy has an unexpected encounter with a mysterious young woman from the wastelands who will change the course of his life forever.</item>
+        <item>We don\'t have an overview translated in English. Help us expand our database by adding one.</item>
+        <item>This is a story of a brave man who fought and won against all odds, Sarpanch Rupinder Singh Gandhi, a prolific sportsman, daring leader and true friend. This movie shows how circumstances and situations converts him into "Something -else" when he and his friends take decisions that end up making them Outlaws. The man who lived for other people and never worried what he was called ~ Robinhood or a Gangser</item>
+        <item>Spider-Man, also known as Spider-Man: The Animated Series, was an American animated television series based on the Marvel Comics superhero, Spider-Man. The show ran on Fox Kids from November 19, 1994, to January 31, 1998. The producer/story editor was John Semper, Jr. and the production company was Marvel Films Animation. The instrumental theme song for the series was performed by Joe Perry of Aerosmith. Reruns can currently be seen for free at Marvel.com.</item>
+        <item>In Stockholm, Sweden, hacker Lisbeth Salander is hired by Frans Balder, a computer engineer, to retrieve a program that he believes it is too dangerous to exist.</item>
+        <item>Earl Stone, a man in his 80s, is broke, alone, and facing foreclosure of his business when he is offered a job that simply requires him to drive. Easy enough, but, unbeknownst to Earl, he’s just signed on as a drug courier for a Mexican cartel. He does so well that his cargo increases exponentially, and Earl hit the radar of hard-charging DEA agent Colin Bates.</item>
+        <item>Investigative journalist Eddie Brock attempts a comeback following a scandal, but accidentally becomes the host of Venom, a violent, super powerful alien symbiote. Soon, he must rely on his newfound powers to protect the world from a shadowy organization looking for a symbiote of their own.</item>
+    </string-array>
+
+    <string-array name="movies_year">
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>1998</item>
+        <item>2019</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2019</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+        <item>2018</item>
+    </string-array>
 </resources>

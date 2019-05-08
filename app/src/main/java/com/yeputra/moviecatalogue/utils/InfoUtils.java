@@ -2,8 +2,9 @@ package com.yeputra.moviecatalogue.utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class InfoUtils {
     static void toast(Context ctx, String message) {

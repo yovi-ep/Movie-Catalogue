@@ -9,13 +9,13 @@
     <dimen name="margin_multi_extra_big">64dp</dimen>
     <dimen name="margin_multi_double_extra_big">84dp</dimen>
 
+    <dimen name="title_toolbar_size">20sp</dimen>
+
     <dimen name="divider">0.6dp</dimen>
 
-    <dimen name="logo_height">110dp</dimen>
-    <dimen name="logo_width">100dp</dimen>
-
     <dimen name="photo_size">64dp</dimen>
+    <dimen name="poster_height">200dp</dimen>
+    <dimen name="poster_width">150dp</dimen>
 
-    <dimen name="card_radius">2.5dp</dimen>
-    <dimen name="card_elevation">1.5dp</dimen>
+    <dimen name="nav_icon_size">35dp</dimen>
 </resources>
