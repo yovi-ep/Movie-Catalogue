@@ -21,15 +21,13 @@ public class MainActivity extends BaseActivity<DataPresenter> implements OnClick
     @BindView(R.id.list_item)
     ListView listView;
 
-    private MovieAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        adapter = new MovieAdapter(this);
+        MovieAdapter adapter = new MovieAdapter(this);
         listView.setAdapter(adapter);
         adapter.addItem(presenter.getMovies());
     }

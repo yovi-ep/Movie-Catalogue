@@ -34,7 +34,7 @@ public class DataPresenter extends BasePresenter {
                     movieYear[i]
             ));
         }
-
+        movieIcon.recycle();
         view.hideProgressbar();
         return movies;
     }

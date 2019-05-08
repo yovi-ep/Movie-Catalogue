@@ -29,7 +29,6 @@ public class MovieAdapter extends BaseListAdapter<Movie> {
     }
 
     class VHolder {
-        private OnClickListItemListener<Movie> listener;
         @BindView(R.id.img_poster)
         ImageView imgPoster;
         @BindView(R.id.tv_title)
@@ -39,15 +38,11 @@ public class MovieAdapter extends BaseListAdapter<Movie> {
 
         VHolder(View view, Movie movie, OnClickListItemListener<Movie> listener) {
             ButterKnife.bind(this, view);
-            this.listener = listener;
-
             imgPoster.setImageResource(movie.getIcon());
             tvTitle.setText(movie.getTitle());
             tvDesc.setText(movie.getDescription());
 
-            view.setOnClickListener(v -> {
-                listener.OnClickItem(movie);
-            });
+            view.setOnClickListener(v -> listener.OnClickItem(movie));
         }
     }
 }
