@@ -17,7 +17,7 @@ public class DataPresenter extends BasePresenter {
 
     }
 
-    public List<Movie> getMovies() {
+    public void getMovies() {
         view.showProgressbar();
 
         TypedArray movieIcon = ctx.getResources().obtainTypedArray(R.array.movies_icon);
@@ -34,9 +34,31 @@ public class DataPresenter extends BasePresenter {
                     movieYear[i]
             ));
         }
+        view.onPresenterSuccess(movies);
         movieIcon.recycle();
         view.hideProgressbar();
-        return movies;
+    }
+
+    public void getTVMovies() {
+        view.showProgressbar();
+
+        TypedArray movieIcon = ctx.getResources().obtainTypedArray(R.array.movies_icon);
+        String[] movieTitle = ctx.getResources().getStringArray(R.array.movies_title);
+        String[] movieDescription = ctx.getResources().getStringArray(R.array.movies_description);
+        String[] movieYear = ctx.getResources().getStringArray(R.array.movies_year);
+
+        List<Movie> movies = new ArrayList<>();
+        for (int i= 0; i < movieTitle.length; i++) {
+            movies.add(new Movie(
+                    movieIcon.getResourceId(i, 0),
+                    movieTitle[i],
+                    movieDescription[i],
+                    movieYear[i]
+            ));
+        }
+        view.onPresenterSuccess(movies);
+        movieIcon.recycle();
+        view.hideProgressbar();
     }
 
     @Override

@@ -14,6 +14,15 @@
         <item name="actionMenuTextColor">@color/colorTextViewSecondary</item>
         <item name="android:textColorSecondary">@color/colorTextViewSecondary</item>
     </style>
+
+    <style name="TabLayoutTheme" parent="Base.Widget.Design.TabLayout">
+        <item name="tabRippleColor">@color/divider</item>
+        <item name="tabTextAppearance">@style/TextTabLayout</item>
+    </style>
+
+    <style name="TextTabLayout" parent="TextView.MediumBold">
+        <item name="android:textAllCaps">true</item>
+    </style>
     <!-- THEME -->
 
 

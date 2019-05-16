@@ -1,25 +1,30 @@
 package com.yeputra.moviecatalogue.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ListView;
+import android.view.View;
 
+import com.google.android.material.tabs.TabLayout;
 import com.yeputra.moviecatalogue.R;
-import com.yeputra.moviecatalogue.adapter.MovieAdapter;
+import com.yeputra.moviecatalogue.adapter.VPagerAdapter;
 import com.yeputra.moviecatalogue.base.BaseActivity;
-import com.yeputra.moviecatalogue.base.OnClickListItemListener;
-import com.yeputra.moviecatalogue.model.Movie;
+import com.yeputra.moviecatalogue.model.VPager;
 import com.yeputra.moviecatalogue.presenter.DataPresenter;
-import com.yeputra.moviecatalogue.utils.Constans;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends BaseActivity<DataPresenter> implements OnClickListItemListener<Movie> {
+public class MainActivity extends BaseActivity<DataPresenter> {
 
-    @BindView(R.id.list_item)
-    ListView listView;
+    @BindView(R.id.tablayout)
+    TabLayout tabLayout;
+
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +32,18 @@ public class MainActivity extends BaseActivity<DataPresenter> implements OnClick
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        MovieAdapter adapter = new MovieAdapter(this);
-        listView.setAdapter(adapter);
-        adapter.addItem(presenter.getMovies());
+        List<VPager> pages = new ArrayList<>();
+        pages.add(new VPager(getString(R.string.lbl_movie), new MovieFm()));
+        pages.add(new VPager(getString(R.string.lbl_tvshow), new TVShowFm()));
+
+        viewPager.setAdapter(new VPagerAdapter(pages, getSupportFragmentManager()));
+        viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
-    public DataPresenter initPresenter() {
+    protected DataPresenter initPresenter() {
         return new DataPresenter(this);
-    }
-
-    @Override
-    public void OnClickItem(Movie movie) {
-        startActivity(new Intent(
-                this,
-                DetailMovieActivity.class
-        ).putExtra(Constans.INTENT_DATA, movie));
     }
 }

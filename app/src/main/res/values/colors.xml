@@ -4,9 +4,10 @@
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#FFC107</color>
 
-    <color name="background">#A4ADB3</color>
+    <color name="background">#DDE2E4</color>
     <color name="colorTextViewPrimary">#4B4B4B</color>
     <color name="colorTextViewSecondary">#6F6F6F</color>
 
+    <color name="divider">#DADADA</color>
     <color name="white">#FFFFFF</color>
 </resources>
