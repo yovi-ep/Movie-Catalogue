@@ -42,7 +42,6 @@ public class DetailMovieActivity extends BaseToolbarActivity<DataPresenter> {
         ButterKnife.bind(this);
 
         Movie movie = getIntent().getParcelableExtra(Constans.INTENT_DATA);
-        setToolbarTitle(movie.getTitle());
         imgPoster.setImageResource(movie.getIcon());
         tvDescription.setText("(" + movie.getDate() + ") " + movie.getDescription());
 

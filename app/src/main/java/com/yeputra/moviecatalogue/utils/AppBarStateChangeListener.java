@@ -16,8 +16,6 @@ public class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedLi
 
     private State mCurrentState = State.SWIPING;
 
-    private int latestPos = 0;
-
     private OnOffsetChangedListener listener;
 
     public AppBarStateChangeListener(OnOffsetChangedListener listener) {
@@ -36,10 +34,9 @@ public class AppBarStateChangeListener implements AppBarLayout.OnOffsetChangedLi
             mCurrentState = State.EXPANDED;
             updateState(State.SWIPING);
         }
-        latestPos = pos;
     }
 
-    void updateState(State newState) {
+    private void updateState(State newState) {
         if (mCurrentState != newState) {
             listener.onOffsetChanged(newState);
         }

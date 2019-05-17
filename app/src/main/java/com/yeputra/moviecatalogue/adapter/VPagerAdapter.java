@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
  */
 public class VPagerAdapter extends FragmentPagerAdapter {
     private List<VPager> fragments;
-    private FragmentManager fmManager;
 
     public VPagerAdapter(List<VPager> fragments, FragmentManager fm) {
         super(fm);

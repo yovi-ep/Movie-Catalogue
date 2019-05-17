@@ -16,15 +16,8 @@ public class VPager {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Fragment getFragment() {
         return fragment;
     }
 
-    public void setFragment(Fragment fragment) {
-        this.fragment = fragment;
-    }
 }

@@ -9,9 +9,6 @@ public class Movie implements Parcelable {
     private String description;
     private String date;
 
-    public Movie() {
-    }
-
     public Movie(int icon, String title, String description, String date) {
         this.icon = icon;
         this.title = title;
@@ -23,35 +20,19 @@ public class Movie implements Parcelable {
         return icon;
     }
 
-    public void setIcon(int icon) {
-        this.icon = icon;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    protected Movie(Parcel in) {
+    private Movie(Parcel in) {
         icon = in.readInt();
         title = in.readString();
         description = in.readString();

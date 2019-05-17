@@ -46,12 +46,12 @@ public class MovieAdapter extends BaseRecyclerViewAdapter<MovieAdapter.VHolder, 
         @BindView(R.id.tv_description)
         TextView tvDesc;
 
-        public VHolder(View view) {
+        VHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
-        public void binding(Movie movie, OnClickListItemListener<Movie> listener) {
+        void binding(Movie movie, OnClickListItemListener<Movie> listener) {
             imgPoster.setImageResource(movie.getIcon());
             tvTitle.setText(movie.getTitle());
             tvDesc.setText(movie.getDescription());
