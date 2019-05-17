@@ -14,7 +14,6 @@ public class DataPresenter extends BasePresenter {
 
     public DataPresenter(IBaseView activity) {
         super(activity);
-
     }
 
     public void getMovies() {
@@ -42,10 +41,10 @@ public class DataPresenter extends BasePresenter {
     public void getTVMovies() {
         view.showProgressbar();
 
-        TypedArray movieIcon = ctx.getResources().obtainTypedArray(R.array.movies_icon);
-        String[] movieTitle = ctx.getResources().getStringArray(R.array.movies_title);
-        String[] movieDescription = ctx.getResources().getStringArray(R.array.movies_description);
-        String[] movieYear = ctx.getResources().getStringArray(R.array.movies_year);
+        TypedArray movieIcon = ctx.getResources().obtainTypedArray(R.array.tvshow_icon);
+        String[] movieTitle = ctx.getResources().getStringArray(R.array.tvshow_title);
+        String[] movieDescription = ctx.getResources().getStringArray(R.array.tvshow_description);
+        String[] movieYear = ctx.getResources().getStringArray(R.array.tvshow_year);
 
         List<Movie> movies = new ArrayList<>();
         for (int i= 0; i < movieTitle.length; i++) {

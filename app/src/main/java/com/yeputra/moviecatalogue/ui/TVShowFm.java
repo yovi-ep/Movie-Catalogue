@@ -1,5 +1,6 @@
 package com.yeputra.moviecatalogue.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.yeputra.moviecatalogue.adapter.MovieAdapter;
 import com.yeputra.moviecatalogue.base.BaseFragment;
 import com.yeputra.moviecatalogue.model.Movie;
 import com.yeputra.moviecatalogue.presenter.DataPresenter;
+import com.yeputra.moviecatalogue.utils.Constans;
 
 import java.util.List;
 
@@ -46,7 +48,9 @@ public class TVShowFm extends BaseFragment<DataPresenter> {
         swipeRefreshLayout.setOnRefreshListener(() -> presenter.getMovies());
 
         adapter = new MovieAdapter(movie -> {
-
+            Intent in = new Intent(getContextView(), DetailMovieActivity.class);
+            in.putExtra(Constans.INTENT_DATA, movie);
+            startActivity(in);
         });
         rvItem.setLayoutManager(new LinearLayoutManager(getContextView()));
         rvItem.setOverScrollMode(View.OVER_SCROLL_NEVER);

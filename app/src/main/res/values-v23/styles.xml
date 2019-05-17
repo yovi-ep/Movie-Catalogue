@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- To change the popup menu and app text color  -->
+        <item name="android:textColor">@color/colorTextViewSecondary</item>
+        <item name="android:itemBackground">@color/white</item>
+        <item name="android:windowBackground">@color/background</item>
+
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

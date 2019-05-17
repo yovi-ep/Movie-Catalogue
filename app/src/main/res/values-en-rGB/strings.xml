@@ -5,79 +5,10 @@
 
     <string name="lbl_movie">Movie</string>
     <string name="lbl_tvshow">TV Show</string>
-<!--
 
-    <array name="movies_icon">
-        <item>@drawable/poster_a_star</item>
-        <item>@drawable/poster_aquaman</item>
-        <item>@drawable/poster_avengerinfinity</item>
-        <item>@drawable/poster_birdbox</item>
-        <item>@drawable/poster_bohemian</item>
-        <item>@drawable/poster_bumblebee</item>
-        <item>@drawable/poster_creed</item>
-        <item>@drawable/poster_deadpool</item>
-        <item>@drawable/poster_dragon</item>
-        <item>@drawable/poster_dragonball</item>
-        <item>@drawable/poster_glass</item>
-        <item>@drawable/poster_hunterkiller</item>
-        <item>@drawable/poster_marrypopins</item>
-        <item>@drawable/poster_mortalengine</item>
-        <item>@drawable/poster_preman</item>
-        <item>@drawable/poster_robinhood</item>
-        <item>@drawable/poster_spiderman</item>
-        <item>@drawable/poster_thegirl</item>
-        <item>@drawable/poster_themule</item>
-        <item>@drawable/poster_venom</item>
-    </array>
+    <string name="menu_localization">Change Language</string>
 
-    <string-array name="movies_title">
-        <item>A Start Is Born</item>
-        <item>Aquaman</item>
-        <item>Avenger Infinity</item>
-        <item>Bird Box</item>
-        <item>Bohemian Rhapsody</item>
-        <item>Bumble Bee</item>
-        <item>Creed</item>
-        <item>The Dead Pool</item>
-        <item>How to Train Your Dragon</item>
-        <item>Super Dragon Ball Heroes</item>
-        <item>Glass</item>
-        <item>Hunter Killer</item>
-        <item>Mary Poppins Returns</item>
-        <item>Mortal Engine</item>
-        <item>Preman</item>
-        <item>Rupinder Gandhi 2: The Robinhood</item>
-        <item>Spiderman</item>
-        <item>The Girl in The Spiders Web</item>
-        <item>The Mule</item>
-        <item>Venom</item>
-    </string-array>
-
-
-    <string-array name="movies_year">
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>1998</item>
-        <item>2019</item>
-        <item>2018</item>
-        <item>2019</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2019</item>
-        <item>2019</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-        <item>2018</item>
-    </string-array>
--->
-
+    <!-- DATA MANAGER -->
     <string-array name="movies_description">
         <item>Seasoned musician Jackson Maine discovers - and falls in love with - struggling artist Ally. She has just about given up on her dream to make it big as a singer - until Jack coaxes her into the spotlight. But even as Ally\'s career takes off, the personal side of their relationship is breaking down, as Jack fights an ongoing battle with his own internal demons.</item>
         <item>Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people and then the surface world. Standing in his way is Arthur Curry, Orm\'s half-human, half-Atlantean brother and true heir to the throne.</item>
@@ -99,5 +30,28 @@
         <item>In Stockholm, Sweden, hacker Lisbeth Salander is hired by Frans Balder, a computer engineer, to retrieve a program that he believes it is too dangerous to exist.</item>
         <item>Earl Stone, a man in his 80s, is broke, alone, and facing foreclosure of his business when he is offered a job that simply requires him to drive. Easy enough, but, unbeknownst to Earl, he’s just signed on as a drug courier for a Mexican cartel. He does so well that his cargo increases exponentially, and Earl hit the radar of hard-charging DEA agent Colin Bates.</item>
         <item>Investigative journalist Eddie Brock attempts a comeback following a scandal, but accidentally becomes the host of Venom, a violent, super powerful alien symbiote. Soon, he must rely on his newfound powers to protect the world from a shadowy organization looking for a symbiote of their own.</item>
+    </string-array>
+
+    <string-array name="tvshow_description">
+        <item>Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.</item>
+        <item>The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.</item>
+        <item>Dragon Ball Z is a Japanese animated television series produced by Toei Animation. Dragon Ball Z is the sequel to the Dragon Ball anime and adapts the last 26 volumes of the original 42 volume Dragon Ball manga series created by Akira Toriyama The series Debut in 1988–1995 on Weekly Shounen Jump. Dragon Ball Z depicts the continuing adventures of Goku and his companions to defend against an assortment of villains which seek to destroy or rule the Earth. The anime first aired in Japan from April 25, 1989, to January 31, 1996, and was dubbed in several territories around the world, including the United States, Europe, and in Latin America.</item>
+        <item>Lucy is a 17-year-old girl, who wants to be a full-fledged mage. One day when visiting Harujion Town, she meets Natsu, a young man who gets sick easily by any type of transportation. But Natsu isn\'t just any ordinary kid, he\'s a member of one of the world\'s most infamous mage guilds: Fairy Tail.</item>
+        <item>Sick, twisted, politically incorrect and Freakin\' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he\'s not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.</item>
+        <item>After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only "meta-human" who was created in the wake of the accelerator explosion — and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won\'t be long before the world learns what Barry Allen has become…The Flash.</item>
+        <item>A weekly talent competition where an array of performers – from singers and dancers, to comedians and novelty acts – vie for a $1 million cash prize.</item>
+        <item>Before there was Batman, there was GOTHAM. \n\nEveryone knows the name Commissioner Gordon. He is one of the crime world\'s greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordon\'s story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the world\'s most iconic villains? And what circumstances created them – the larger-than-life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker?</item>
+        <item>Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.</item>
+        <item>This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright film.</item>
+        <item>Danny Rand resurfaces 15 years after being presumed dead. Now, with the power of the Iron Fist, he seeks to reclaim his past and fulfill his destiny.</item>
+        <item>Naruto Shippuuden is the continuation of the original animated TV series Naruto.The story revolves around an older and slightly more matured Uzumaki Naruto and his quest to save his friend Uchiha Sasuke from the grips of the snake-like Shinobi, Orochimaru. After 2 and a half years Naruto finally returns to his village of Konoha, and sets about putting his ambitions to work, though it will not be easy, as He has amassed a few (more dangerous) enemies, in the likes of the shinobi organization; Akatsuki.</item>
+        <item>From murder and espionage to terrorism and stolen submarines, a team of special agents investigates any crime that has a shred of evidence connected to Navy and Marine Corps personnel, regardless of rank or position.</item>
+        <item>Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.</item>
+        <item>Chicagoan Frank Gallagher is the proud single dad of six smart, industrious, independent kids, who without him would be… perhaps better off. When Frank\'s not at the bar spending what little money they have, he\'s passed out on the floor. But the kids have found ways to grow up in spite of him. They may not be like any family you know, but they make no apologies for being exactly who they are.</item>
+        <item>Twenty-four-year-old Kara Zor-El, who was taken in by the Danvers family when she was 13 after being sent away from Krypton, must learn to embrace her powers after previously hiding them. The Danvers teach her to be careful with her powers, until she has to reveal them during an unexpected disaster, setting her on her journey of heroism.</item>
+        <item>Small town Americana has been haunted for hundreds of years by monsters that weather created and folklore fostered.</item>
+        <item>Set in Springfield, the average American town, the show focuses on the antics and everyday adventures of the Simpson family; Homer, Marge, Bart, Lisa and Maggie, as well as a virtual cast of thousands. Since the beginning, the series has been a pop culture icon, attracting hundreds of celebrities to guest star. The show has also made name for itself in its fearless satirical take on politics, media and American life in general.</item>
+        <item>A dysfunctional family of superheroes comes together to solve the mystery of their father\'s death, the threat of the apocalypse and more.</item>
+        <item>Sheriff\'s deputy Rick Grimes awakens from a coma to find a post-apocalyptic world dominated by flesh-eating zombies. He sets out to find his family and encounters many other survivors along the way.</item>
     </string-array>
 </resources>

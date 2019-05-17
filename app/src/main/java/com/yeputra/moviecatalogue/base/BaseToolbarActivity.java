@@ -1,46 +1,78 @@
 package com.yeputra.moviecatalogue.base;
 
-import android.widget.TextView;
-
-import java.util.Objects;
+import android.graphics.drawable.Drawable;
 
 import androidx.appcompat.widget.Toolbar;
 
-public abstract class BaseToolbarActivity
-        extends BaseActivity
+public abstract class BaseToolbarActivity<presenter extends IBasePresenter>
+        extends BaseActivity<presenter>
         implements IToolbar {
 
-    private TextView toolbarTitle;
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    protected void setToolbar(int idToolbar, int idTitleToolbar) {
-        setToolbar(idToolbar);
-        toolbarTitle = findViewById(idTitleToolbar);
-    }
+        setSupportActionBar(setToolbar());
 
-    protected void setToolbar(int idToolbar) {
-        Toolbar toolbar = findViewById(idToolbar);
-        if(toolbar != null){
-            setSupportActionBar(toolbar);
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(setButtonBack());
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-            if(setButtonBack()){
-                toolbar.setNavigationOnClickListener(v -> finish());
-            }
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(setToolbarTitle());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(setButtonBack());
+            getSupportActionBar().setDisplayShowHomeEnabled(setToolbarIcon());
+        }
+        if(setButtonBack()){
+            setToolbar().setNavigationOnClickListener(v -> finish());
         }
     }
 
     protected void setToolbarTitle(String toolbarTitle) {
-        if(this.toolbarTitle != null)
-            this.toolbarTitle.setText(toolbarTitle);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(toolbarTitle);
     }
 
     protected void setToolbarTitle(int toolbarTitle) {
-        if(this.toolbarTitle != null)
-            this.toolbarTitle.setText(toolbarTitle);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(toolbarTitle);
     }
 
+    protected void setToolbarSubTitle(String toolbarTitle) {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setSubtitle(toolbarTitle);
+    }
+
+    protected void setToolbarSubTitle(int toolbarTitle) {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setSubtitle(toolbarTitle);
+    }
+
+    protected void setToolbarIcon(int image) {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setIcon(image);
+    }
+
+    protected void setToolbarIcon(Drawable image) {
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setIcon(image);
+    }
 
     @Override
-    public boolean setButtonBack() { return false; }
+    public boolean setButtonBack() {
+        return false;
+    }
+
+    @Override
+    public boolean setToolbarTitle() {
+        return false;
+    }
+
+    @Override
+    public boolean setToolbarSubTitle() {
+        return false;
+    }
+
+    @Override
+    public boolean setToolbarIcon() {
+        return false;
+    }
+
+    protected abstract Toolbar setToolbar();
 }
