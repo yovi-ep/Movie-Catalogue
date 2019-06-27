@@ -15,23 +15,19 @@ import androidx.fragment.app.Fragment;
  * Company SIEMO - PT. Multipolar Technology, Tbk
  */
 
-public abstract class BaseFragment<presenter extends IBasePresenter>
+public abstract class BaseFragment<viewmodel extends IBaseViewModel>
     extends Fragment
     implements IBaseView {
 
     private final String TAG = BaseFragment.class.getSimpleName();
 
     private IBaseView activity;
-    protected presenter presenter;
+    protected viewmodel viewmodel;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context != null) {
-            activity = (IBaseView) context;
-        } else {
-            activity = this;
-        }
+        activity = (IBaseView) context;
     }
 
     @Override
@@ -43,10 +39,10 @@ public abstract class BaseFragment<presenter extends IBasePresenter>
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        presenter = initPresenter();
+        viewmodel = initPresenter();
     }
 
-    protected abstract presenter initPresenter();
+    protected abstract viewmodel initPresenter();
 
     @Override
     public Context getContextView() {
@@ -54,18 +50,13 @@ public abstract class BaseFragment<presenter extends IBasePresenter>
     }
 
     @Override
-    public void onPresenterSuccess(Object data) {
-
-    }
-
-    @Override
-    public void onPresenterFailed(String message) {
+    public void onViewModelFailed(String message) {
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroyPresenter();
+        viewmodel.onDestroy();
     }
 }

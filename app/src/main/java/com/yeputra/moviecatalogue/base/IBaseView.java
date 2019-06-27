@@ -12,11 +12,10 @@ public interface IBaseView {
 
     Context getContextView();
 
-    void showProgressbar();
+    void onShowProgressbar();
 
-    void hideProgressbar();
+    void onHideProgressbar();
 
-    void onPresenterSuccess(Object data);
+    void onViewModelFailed(String message);
 
-    void onPresenterFailed(String message);
 }

@@ -1,0 +1,29 @@
+package com.yeputra.moviecatalogue.viewmodel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.yeputra.moviecatalogue.base.BaseViewModel
+import com.yeputra.moviecatalogue.model.MovieResponse
+import com.yeputra.moviecatalogue.repository.ApiMovie
+import com.yeputra.moviecatalogue.utils.RxUtils
+
+class MovieViewModel : BaseViewModel() {
+    private val movieLiveData = MutableLiveData<MovieResponse>()
+
+    fun getMovie() : LiveData<MovieResponse> {
+        subscriber = api<ApiMovie>()
+                .getMovies(getLocale())
+                .compose(RxUtils.applyObservableAsync())
+                .subscribe(onSuccess(), onFailed())
+
+        return movieLiveData
+    }
+
+    override fun onResponseSuccess(data: Any) {
+        when (data) {
+            is MovieResponse -> {
+                movieLiveData.postValue(data)
+            }
+        }
+    }
+}

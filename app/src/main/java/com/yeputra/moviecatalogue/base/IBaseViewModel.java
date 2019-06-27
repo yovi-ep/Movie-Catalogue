@@ -6,6 +6,8 @@ package com.yeputra.moviecatalogue.base;
  *    on 09/Mar/2019 10:57
  * Company SIEMO - PT. Multipolar Technology, Tbk
  */
-public interface IBasePresenter {
-    void onDestroyPresenter();
+public interface IBaseViewModel {
+
+    void onDestroy();
+
 }

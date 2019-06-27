@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
     <string name="no_internet_connection">Network problems, check your internet connection and try again</string>
+    <string name="server_under_maintenance">Server under maintenance</string>
+    <string name="cannot_connect_toserver">Can not connecting to server, please try again a few minute</string>
 
     <string name="lbl_movie">Movie</string>
     <string name="lbl_tvshow">TV Show</string>

@@ -12,28 +12,28 @@ import androidx.appcompat.app.AppCompatActivity;
  *    on 09/Mar/2019 10:56
  * Company SIEMO - PT. Multipolar Technology, Tbk
  */
-public abstract class BaseActivity<presenter extends IBasePresenter>
+public abstract class BaseActivity<viewmodel extends IBaseViewModel>
         extends AppCompatActivity
         implements IBaseView {
     protected final String TAG = BaseActivity.class.getSimpleName();
 
-    protected presenter presenter;
+    protected viewmodel viewmodel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = initPresenter();
+        viewmodel = initViewModel();
     }
 
     @Override
     protected void onDestroy() {
-        if(presenter != null)
-            presenter.onDestroyPresenter();
+        if(viewmodel != null)
+            viewmodel.onDestroy();
         super.onDestroy();
         Log.d(TAG, "Activity destroy");
     }
 
-    protected abstract presenter initPresenter();
+    protected abstract viewmodel initViewModel();
 
     @Override
     public Context getContextView() {
@@ -41,22 +41,17 @@ public abstract class BaseActivity<presenter extends IBasePresenter>
     }
 
     @Override
-    public void showProgressbar() {
+    public void onShowProgressbar() {
         Log.d(TAG, "show progressbar");
     }
 
     @Override
-    public void hideProgressbar() {
+    public void onHideProgressbar() {
         Log.d(TAG, "hide progressbar");
     }
 
     @Override
-    public void onPresenterSuccess(@Nullable Object data) {
-        Log.d(TAG, "Presenter success");
-    }
-
-    @Override
-    public void onPresenterFailed(@Nullable String message) {
+    public void onViewModelFailed(@Nullable String message) {
         Log.d(TAG, "Presenter failed");
     }
 }
