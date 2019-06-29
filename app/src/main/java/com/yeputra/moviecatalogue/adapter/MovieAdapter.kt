@@ -9,14 +9,15 @@ import com.bumptech.glide.Glide
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseRecyclerViewAdapter
 import com.yeputra.moviecatalogue.model.Movie
-import com.yeputra.moviecatalogue.utils.Constans.POSTER_MEDIUM
-import com.yeputra.moviecatalogue.utils.Constans.POSTER_URL
+import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_MEDIUM
+import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_URL
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_movie.*
 
 class MovieAdapter(
         private val listener: (Movie) -> Unit
 ) : BaseRecyclerViewAdapter<MovieAdapter.VHolder, Movie>() {
+
     override fun onBindViewHolder(holder: VHolder, item: Movie, position: Int) {
         holder.binding(item, listener)
     }
@@ -48,6 +49,5 @@ class MovieAdapter(
                     .into(img_poster)
             containerView.setOnClickListener { listener(movie) }
         }
-
     }
 }

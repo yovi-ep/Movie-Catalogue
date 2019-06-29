@@ -3,6 +3,7 @@ package com.yeputra.moviecatalogue.base
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.yeputra.moviecatalogue.utils.toast
 
 /**
  * Created by yovi.putra
@@ -24,11 +25,13 @@ abstract class BaseActivity<viewmodel : IBaseViewModel> : AppCompatActivity(), I
     }
 
     override fun onDestroy() {
-        viewmodel?.onDestroy()
+        viewmodel.onDestroy()
         super.onDestroy()
     }
 
-    override fun onPushInformation(message: String?, data: Any?) {}
+    override fun onPushInformation(message: String?, data: Any?) {
+        message?.let { toast(it) }
+    }
 
     override fun onShowProgressbar() {}
 

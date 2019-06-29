@@ -6,7 +6,6 @@ import android.net.NetworkInfo
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.yeputra.moviecatalogue.R
-import com.yeputra.moviecatalogue.model.ErrorResponse
 import com.yeputra.moviecatalogue.utils.RestClient
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
@@ -43,12 +42,7 @@ abstract class BaseViewModel : ViewModel(), IBaseViewModel {
     fun onSuccess(): Consumer<Any> =
             Consumer {
                 view?.onHideProgressbar()
-                when (it) {
-                    is ErrorResponse -> {
-                        view?.onPushInformation(it.status_code + " : " + it.status_message, null)
-                    }
-                    else -> onResponseSuccess(it)
-                }
+                onResponseSuccess(it)
             }
 
     fun onFailed(): Consumer<Any> =
@@ -60,7 +54,7 @@ abstract class BaseViewModel : ViewModel(), IBaseViewModel {
                         try {
                             val errBody = it.response().errorBody()?.string()
                             val json = JSONObject(errBody)
-                            view?.onPushInformation(json["status"].toString()+": " + json["error"].toString(), null)
+                            view?.onPushInformation(json["status_message"].toString(), null)
                         } catch (e: Exception) {
                             Log.e(TAG, e.message)
                             view?.onPushInformation(view?.contextView()?.getString(R.string.server_under_maintenance), null)

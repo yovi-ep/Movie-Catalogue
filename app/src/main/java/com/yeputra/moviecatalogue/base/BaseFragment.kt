@@ -48,5 +48,7 @@ abstract class BaseFragment<viewmodel : IBaseViewModel> : Fragment(), IBaseView 
 
     override fun onHideProgressbar() {}
 
-    override fun onPushInformation(message: String?, data: Any?) {}
+    override fun onPushInformation(message: String?, data: Any?) {
+        activity?.onPushInformation(message, data)
+    }
 }
