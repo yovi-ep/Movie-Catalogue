@@ -11,14 +11,26 @@
 
     <dimen name="title_toolbar_size">20sp</dimen>
 
+    <dimen name="card_radius_multi_small">0.5dp</dimen>
+    <dimen name="card_radius_double_small">1dp</dimen>
+    <dimen name="card_radius_small">2dp</dimen>
+    <dimen name="card_radius_medium">4dp</dimen>
+    <dimen name="card_radius_big">6dp</dimen>
+    <dimen name="card_round">25dp</dimen>
+    <dimen name="card_round_big">40dp</dimen>
+
+    <dimen name="card_elevation_small">1dp</dimen>
+    <dimen name="card_elevation_medium">1.5dp</dimen>
+    <dimen name="card_elevation_big">2dp</dimen>
+
     <dimen name="divider">0.6dp</dimen>
+    <dimen name="divider_width">50dp</dimen>
 
-    <dimen name="photo_size">64dp</dimen>
-    <dimen name="poster_height">200dp</dimen>
-    <dimen name="poster_width">150dp</dimen>
-
-    <dimen name="nav_icon_size">35dp</dimen>
-
-    <dimen name="card_radius">2.5dp</dimen>
-    <dimen name="card_elevation">1.5dp</dimen>
+    <!-- Item Movie-->
+    <dimen name="item_poster_height">250dp</dimen>
+    <!-- Detail Movie-->
+    <dimen name="banner_height">230dp</dimen>
+    <dimen name="poster_width">100dp</dimen>
+    <dimen name="poster_height">130dp</dimen>
+    <dimen name="poster_margin_top_offset">200dp</dimen>
 </resources>

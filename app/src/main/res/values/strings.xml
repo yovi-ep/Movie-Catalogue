@@ -8,7 +8,6 @@
 
     <string name="title" translatable="false">Title</string>
     <string name="description" translatable="false">Description</string>
-
     <string name="lbl_movie">Film</string>
     <string name="lbl_tvshow">Acara TV</string>
 

@@ -5,7 +5,6 @@ public interface Constans {
 
     String POSTER_URL = "https://image.tmdb.org/t/p/";
 
-    String POSTER_SMALL = "/w92/";
     String POSTER_MEDIUM = "/w185/";
     String POSTER_LARGE = "/w500/";
 

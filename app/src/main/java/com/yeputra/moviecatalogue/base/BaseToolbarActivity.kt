@@ -1,10 +1,18 @@
 package com.yeputra.moviecatalogue.base
 
-import android.graphics.drawable.Drawable
-
 import androidx.appcompat.widget.Toolbar
 
+interface IToolbar {
+    fun setToolbarTitle(): Boolean
+
+    fun setButtonBack(): Boolean
+
+    fun setToolbarIcon(): Boolean
+}
+
 abstract class BaseToolbarActivity<viewmodel : IBaseViewModel> : BaseActivity<viewmodel>(), IToolbar {
+
+    protected abstract fun setToolbar(): Toolbar
 
     override fun onStart() {
         super.onStart()
@@ -21,31 +29,9 @@ abstract class BaseToolbarActivity<viewmodel : IBaseViewModel> : BaseActivity<vi
         }
     }
 
-    fun setToolbarTitle(toolbarTitle: String) {
-        supportActionBar?.title = toolbarTitle
-    }
-
-    protected fun setToolbarTitle(toolbarTitle: Int) {
-        supportActionBar?.setTitle(toolbarTitle)
-    }
-
-    protected fun setToolbarSubTitle(toolbarTitle: String) {
-        supportActionBar?.subtitle = toolbarTitle
-    }
-
-    protected fun setToolbarSubTitle(toolbarTitle: Int) = supportActionBar?.setSubtitle(toolbarTitle)
-
-    protected fun setToolbarIcon(image: Int) = supportActionBar?.setIcon(image)
-
-    protected fun setToolbarIcon(image: Drawable) = supportActionBar?.setIcon(image)
+    override fun setToolbarTitle(): Boolean = false
 
     override fun setButtonBack(): Boolean = false
 
-    override fun setToolbarTitle(): Boolean = false
-
-    override fun setToolbarSubTitle(): Boolean = false
-
     override fun setToolbarIcon(): Boolean = false
-
-    protected abstract fun setToolbar(): Toolbar
 }

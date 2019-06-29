@@ -32,6 +32,17 @@
 
 
     <!-- COMPONENT -->
+    <style name="CardViewTheme" parent="Base.CardView">
+        <item name="cardMaxElevation">@dimen/card_elevation_medium</item>
+        <item name="cardElevation">@dimen/card_elevation_medium</item>
+        <item name="cardCornerRadius">@dimen/card_radius_medium</item>
+
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+        <item name="android:layout_marginBottom">@dimen/margin_small</item>
+        <item name="android:layout_marginLeft">@dimen/margin_medium</item>
+        <item name="android:layout_marginRight">@dimen/margin_medium</item>
+    </style>
+
     <style name="TextView" parent="android:TextAppearance">
         <item name="android:textColor">@color/colorTextViewSecondary</item>
         <item name="android:gravity">left</item>

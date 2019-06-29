@@ -63,23 +63,13 @@ abstract class BaseRecyclerViewAdapter <VH: RecyclerView.ViewHolder,T>
 
     fun getItem(position: Int) : T? = items[position]
 
-    fun addItem(item: T) {
-        this.items.add(item)
-        this.notifyDataSetChanged()
-    }
-
-    fun addItem(items: MutableList<T>){
+    private fun addItem(items: MutableList<T>){
         this.items.addAll(items)
         this.notifyDataSetChanged()
     }
 
-    fun clear(){
+    private fun clear(){
         this.items.clear()
-    }
-
-    fun setItem(item: T) {
-        clear()
-        addItem(item)
     }
 
     fun setItem(item: MutableList<T>) {

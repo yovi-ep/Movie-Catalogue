@@ -11,6 +11,7 @@ class TVViewModel : BaseViewModel() {
     private val movieLiveData = MutableLiveData<MovieResponse>()
 
     fun getTVShow() : LiveData<MovieResponse> {
+        view?.onShowProgressbar()
         subscriber = api<ApiTV>()
                 .getTV(getLocale())
                 .compose(RxUtils.applyObservableAsync())

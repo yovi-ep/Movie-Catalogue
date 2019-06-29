@@ -44,6 +44,7 @@ class MovieAdapter(
 
             Glide.with(containerView.context)
                     .load(POSTER_URL + POSTER_MEDIUM + movie.poster_path)
+                    .placeholder(R.mipmap.ic_placeholder)
                     .into(img_poster)
             containerView.setOnClickListener { listener(movie) }
         }

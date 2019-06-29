@@ -1,4 +1,4 @@
-package com.yeputra.moviecatalogue.ui
+package com.yeputra.moviecatalogue.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,11 +14,10 @@ import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.utils.Constans
-import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
+import com.yeputra.moviecatalogue.viewmodel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFm : BaseFragment<MovieViewModel>() {
-
+class TVShowFm : BaseFragment<TVViewModel>() {
     private lateinit var adapter: MovieAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -28,32 +27,32 @@ class MovieFm : BaseFragment<MovieViewModel>() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        onShowProgressbar()
-
-        swiperefresh.setColorSchemeColors(ContextCompat.getColor(contextView, R.color.colorAccent))
+        swiperefresh.setColorSchemeColors(ContextCompat.getColor(contextView(), R.color.colorAccent))
         swiperefresh.setOnRefreshListener {
-            onShowProgressbar()
-            viewmodel.getMovie().observe(this, setMovies)
+            viewmodel.getTVShow().observe(this, setTVShow)
         }
 
-        adapter = MovieAdapter { movie ->
-            val `in` = Intent(contextView, DetailMovieActivity::class.java)
-            `in`.putExtra(Constans.INTENT_DATA, movie)
-            startActivity(`in`)
+        adapter = MovieAdapter {
+            val intent = Intent(contextView(), DetailMovieActivity::class.java)
+            intent.putExtra(Constans.INTENT_DATA, it)
+            startActivity(intent)
         }
 
-        list_item.layoutManager = GridLayoutManager(contextView, 2)
+        list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
-        viewmodel.getMovie().observe(this, setMovies)
+        viewmodel.getTVShow().observe(this, setTVShow)
     }
 
-    private val setMovies = Observer<MovieResponse> {
-        it.results?.let { it2 -> adapter.setItem(it2) }
-        onHideProgressbar()
+    private val setTVShow = Observer<MovieResponse> {
+        it.results?.let { it1 -> adapter.setItem(it1) }
     }
 
-    override fun initPresenter(): MovieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+    override fun initViewModel(): TVViewModel {
+        val vm = ViewModelProviders.of(this).get(TVViewModel::class.java)
+        vm.setupView(this)
+        return vm
+    }
 
     override fun onShowProgressbar() {
         swiperefresh.isRefreshing = true
@@ -62,4 +61,5 @@ class MovieFm : BaseFragment<MovieViewModel>() {
     override fun onHideProgressbar() {
         swiperefresh.isRefreshing = false
     }
+
 }

@@ -1,4 +1,4 @@
-package com.yeputra.moviecatalogue.ui
+package com.yeputra.moviecatalogue.view
 
 import android.content.Intent
 import android.os.Bundle
