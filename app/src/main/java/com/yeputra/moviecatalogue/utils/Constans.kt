@@ -9,8 +9,6 @@ interface Constans {
         const val POSTER_MEDIUM = "/w185/"
         const val POSTER_LARGE = "/w500/"
 
-        const val API_KEY = "86d642a80186fd867574108f0eb92977"
-
         const val INTENT_DATA = "INTENT_DATA"
     }
 }

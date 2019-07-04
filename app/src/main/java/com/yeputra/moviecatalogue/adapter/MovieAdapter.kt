@@ -40,7 +40,7 @@ class MovieAdapter(
                 if (it.length > 4) year = "(${it.substring(0,4)})"
             }
 
-            tv_title.text = "${movie.title?:"-"} $year"
+            tv_title.text = String.format("%s %s", movie.title?:"-", year)
             tv_rating.text = movie.vote_average.toString()
 
             Glide.with(containerView.context)
