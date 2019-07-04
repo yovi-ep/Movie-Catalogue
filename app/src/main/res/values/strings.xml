@@ -10,6 +10,91 @@
     <string name="description" translatable="false">Description</string>
     <string name="lbl_movie">Film</string>
     <string name="lbl_tvshow">Acara TV</string>
+    <string name="lbl_favorite">Favorit</string>
 
     <string name="menu_localization">Ganti Bahasa</string>
+
+    <string name="genre_action">Aksi</string>
+    <string name="gnere_adventure">Petualangan</string>
+    <string name="genre_animation">Animasi</string>
+    <string name="genre_comedy">Komedi</string>
+    <string name="genre_crime">Kejahatan</string>
+    <string name="genre_documenter">Dokumenter</string>
+    <string name="genre_drama">Drama</string>
+    <string name="genre_family">Keluarga</string>
+    <string name="genre_fantacy">Fantasi</string>
+    <string name="genre_history">Sejarah</string>
+    <string name="genre_horror">Kengerian</string>
+    <string name="genre_music">Musik</string>
+    <string name="genre_mysterious">Misteri</string>
+    <string name="genre_love">Percintaan</string>
+    <string name="genre_fiction">Cerita Fiksi</string>
+    <string name="genre_film">Film TV</string>
+    <string name="genre_fun">Cerita Seru</string>
+    <string name="genre_west">Barat</string>
+
+    <!--{
+    "id": 10759,
+    "name": "Aksi & Petualangan"
+    },
+    {
+    "id": 16,
+    "name": "Animasi"
+    },
+    {
+    "id": 35,
+    "name": "Komedi"
+    },
+    {
+    "id": 80,
+    "name": "Kejahatan"
+    },
+    {
+    "id": 99,
+    "name": "Dokumenter"
+    },
+    {
+    "id": 18,
+    "name": "Drama"
+    },
+    {
+    "id": 10751,
+    "name": "Keluarga"
+    },
+    {
+    "id": 10762,
+    "name": "Anak-anak"
+    },
+    {
+    "id": 9648,
+    "name": "Misteri"
+    },
+    {
+    "id": 10763,
+    "name": "Berita"
+    },
+    {
+    "id": 10764,
+    "name": "Realitas"
+    },
+    {
+    "id": 10765,
+    "name": "Sci-fi & Fantasy"
+    },
+    {
+    "id": 10766,
+    "name": "Sabun"
+    },
+    {
+    "id": 10767,
+    "name": "Bicara"
+    },
+    {
+    "id": 10768,
+    "name": "Kejahatan dan Politik"
+    },
+    {
+    "id": 37,
+    "name": "Barat"
+    }-->
 </resources>

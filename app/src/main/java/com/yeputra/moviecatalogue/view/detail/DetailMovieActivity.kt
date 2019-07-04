@@ -1,19 +1,21 @@
-package com.yeputra.moviecatalogue.view
+package com.yeputra.moviecatalogue.view.detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
+import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.utils.Constans
-import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
+import com.yeputra.moviecatalogue.utils.toast
+import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
 import kotlinx.android.synthetic.main.activity_detail_movie.*
 import kotlinx.android.synthetic.main.app_bar.*
-
-class DetailMovieActivity : BaseToolbarActivity<MovieViewModel>() {
+class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +51,40 @@ class DetailMovieActivity : BaseToolbarActivity<MovieViewModel>() {
                 .load(Constans.POSTER_URL + Constans.POSTER_MEDIUM + movie.poster_path)
                 .placeholder(R.mipmap.ic_placeholder)
                 .into(img_poster)
+
+        bt_favorite.tag = false
+
+        bt_favorite.setOnClickListener {
+            if (it.tag as Boolean) {
+                viewmodel.delete(movie.id.toString())
+            } else {
+                viewmodel.add(movie, FilmType.MOVIE)
+            }
+            viewmodel.isFavorited(movie.id.toString()).observe(this, setFlagFavorite)
+        }
+
+        viewmodel.isFavorited(movie.id.toString()).observe(this, setFlagFavorite)
+    }
+
+    val setFlagFavorite = Observer<Boolean> {
+        bt_favorite.tag = it
+        if (it) {
+            bt_favorite.setImageResource(R.drawable.ic_favorite_selected)
+        } else {
+            bt_favorite.setImageResource(R.drawable.ic_favorite_unselect)
+        }
+        toast(it.toString())
     }
 
     override fun setToolbar(): Toolbar = toolbar
 
     override fun setButtonBack(): Boolean = true
 
-    override fun initViewModel(): MovieViewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+    override fun initViewModel(): FavoriteViewModel {
+        val vm = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+        vm.setupView(this)
+        return vm
+    }
+
 }
+

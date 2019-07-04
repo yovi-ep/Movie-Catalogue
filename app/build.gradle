@@ -12,7 +12,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "API_KEY", "86d642a80186fd867574108f0eb92977")
+        buildConfigField("String", "API_KEY", '"86d642a80186fd867574108f0eb92977"')
     }
     buildTypes {
         release {
@@ -70,4 +70,7 @@ dependencies {
     /* Glide */
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    /* Anko SQLite */
+    implementation "org.jetbrains.anko:anko-sqlite:0.10.8"
 }

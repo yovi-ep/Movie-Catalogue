@@ -1,4 +1,4 @@
-package com.yeputra.moviecatalogue.repository
+package com.yeputra.moviecatalogue.repository.api
 
 import com.yeputra.moviecatalogue.BuildConfig.API_KEY
 import com.yeputra.moviecatalogue.model.MovieResponse

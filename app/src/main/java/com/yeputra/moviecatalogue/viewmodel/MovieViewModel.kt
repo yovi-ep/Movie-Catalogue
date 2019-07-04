@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yeputra.moviecatalogue.base.BaseViewModel
 import com.yeputra.moviecatalogue.model.MovieResponse
-import com.yeputra.moviecatalogue.repository.ApiMovie
+import com.yeputra.moviecatalogue.repository.api.ApiMovie
 import com.yeputra.moviecatalogue.utils.RxUtils
 
 class MovieViewModel : BaseViewModel() {

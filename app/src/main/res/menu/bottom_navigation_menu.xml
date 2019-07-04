@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/menu_movie"
+            android:enabled="true"
+            android:title="@string/lbl_movie"
+            android:icon="@drawable/ic_movie"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/menu_tvshow"
+            android:enabled="true"
+            android:title="@string/lbl_tvshow"
+            android:icon="@drawable/ic_tvshow"
+            app:showAsAction="always"/>
+    <item
+            android:id="@+id/menu_favorite"
+            android:enabled="true"
+            android:title="@string/lbl_favorite"
+            android:icon="@drawable/ic_favorite"
+            app:showAsAction="always"/>
+</menu>

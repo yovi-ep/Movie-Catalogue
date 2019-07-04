@@ -1,4 +1,4 @@
-package com.yeputra.moviecatalogue.view
+package com.yeputra.moviecatalogue.view.favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
-import com.yeputra.moviecatalogue.model.MovieResponse
+import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.utils.Constans
-import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
+import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
+import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class MovieFm : BaseFragment<MovieViewModel>() {
+class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
 
     private lateinit var adapter: MovieAdapter
 
@@ -30,7 +31,7 @@ class MovieFm : BaseFragment<MovieViewModel>() {
 
         swiperefresh.setColorSchemeColors(ContextCompat.getColor(contextView(), R.color.colorAccent))
         swiperefresh.setOnRefreshListener {
-            viewmodel.getMovie().observe(this, setMovies)
+            viewmodel.getTvFavorite().observe(this, setTVShow)
         }
 
         adapter = MovieAdapter { movie ->
@@ -42,15 +43,16 @@ class MovieFm : BaseFragment<MovieViewModel>() {
         list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
-        viewmodel.getMovie().observe(this, setMovies)
+        viewmodel.getTvFavorite().observe(this, setTVShow)
     }
 
-    private val setMovies = Observer<MovieResponse> {
-        it.results?.let { it2 -> adapter.setItem(it2) }
+    private val setTVShow = Observer<MutableList<Movie>> {
+        adapter.setItem(it)
+        onHideProgressbar()
     }
 
-    override fun initViewModel(): MovieViewModel {
-        val vm = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+    override fun initViewModel(): FavoriteViewModel {
+        val vm = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
         vm.setupView(this)
         return vm
     }
