@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 
 class TVShowFm : BaseFragment<TVViewModel>() {
     private lateinit var adapter: MovieAdapter
+    private var movieResponse: MovieResponse? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
@@ -31,7 +32,7 @@ class TVShowFm : BaseFragment<TVViewModel>() {
 
         swiperefresh.setColorSchemeColors(ContextCompat.getColor(contextView(), R.color.colorAccent))
         swiperefresh.setOnRefreshListener {
-            viewmodel.getTVShow().observe(this, setTVShow)
+            viewmodel?.getTVShow()?.observe(this, setTVShow)
         }
 
         adapter = MovieAdapter {
@@ -44,10 +45,28 @@ class TVShowFm : BaseFragment<TVViewModel>() {
         list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
-        viewmodel.getTVShow().observe(this, setTVShow)
+
+        restoreSaveInstanceState(savedInstanceState)
+    }
+
+    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            movieResponse = it.getParcelable(Constans.INTENT_DATA)
+            movieResponse?.let { it2 ->
+                it2.results?.let { it1 -> adapter.setItem(it1) }
+            }
+        }?: run {
+            viewmodel?.getTVShow()?.observe(this, setTVShow)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(Constans.INTENT_DATA, movieResponse)
     }
 
     private val setTVShow = Observer<MovieResponse> {
+        movieResponse = it.copy()
         it.results?.let { it1 -> adapter.setItem(it1) }
     }
 

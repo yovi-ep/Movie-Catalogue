@@ -6,11 +6,12 @@ import com.yeputra.moviecatalogue.base.BaseViewModel
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.model.MovieFavorite
+import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.repository.storage.FavoriteService
 
 class FavoriteViewModel : BaseViewModel() {
-    private val movieLiveData = MutableLiveData<MutableList<Movie>>()
-    private val tvLiveData = MutableLiveData<MutableList<Movie>>()
+    private val movieLiveData = MutableLiveData<MovieResponse>()
+    private val tvLiveData = MutableLiveData<MovieResponse>()
     private val favoriteLiveData = MutableLiveData<Boolean>()
 
     private lateinit var favoriteService: FavoriteService
@@ -63,7 +64,7 @@ class FavoriteViewModel : BaseViewModel() {
         return favoriteLiveData
     }
 
-    fun getMovieFavorite() : LiveData<MutableList<Movie>> {
+    fun getMovieFavorite() : LiveData<MovieResponse> {
         view?.onShowProgressbar()
         view?.contextView()?.let {
             favoriteService = FavoriteService(it)
@@ -74,7 +75,7 @@ class FavoriteViewModel : BaseViewModel() {
         return movieLiveData
     }
 
-    fun getTvFavorite() : LiveData<MutableList<Movie>> {
+    fun getTvFavorite() : LiveData<MovieResponse> {
         view?.onShowProgressbar()
         view?.contextView()?.let {
             favoriteService = FavoriteService(it)
@@ -85,7 +86,7 @@ class FavoriteViewModel : BaseViewModel() {
         return tvLiveData
     }
 
-    private fun convertFavorite(data: MutableList<MovieFavorite>) : MutableList<Movie> {
+    private fun convertFavorite(data: MutableList<MovieFavorite>) : MovieResponse {
         val result = mutableListOf<Movie>()
         data.forEach {
             result.add(Movie(
@@ -105,7 +106,7 @@ class FavoriteViewModel : BaseViewModel() {
                     0
             ))
         }
-        return result
+        return MovieResponse(0, result, 0, 0)
     }
     override fun onResponseSuccess(data: Any) {}
 }

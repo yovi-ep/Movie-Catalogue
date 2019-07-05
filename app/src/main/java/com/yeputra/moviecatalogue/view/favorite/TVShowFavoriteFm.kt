@@ -13,7 +13,7 @@ import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.FilmType
-import com.yeputra.moviecatalogue.model.Movie
+import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
 
     private lateinit var adapter: MovieAdapter
+    private var movieResponse : MovieResponse? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
@@ -43,15 +44,30 @@ class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
         list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
-        loadData()
+        restoreSaveInstanceState(savedInstanceState)
+    }
+
+    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            movieResponse = it.getParcelable(Constans.INTENT_DATA)
+            movieResponse?.let { it1 ->
+                it1.results?.let { it2 -> adapter.setItem(it2) }
+            }
+        }?: run { loadData() }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(Constans.INTENT_DATA, movieResponse)
     }
 
     private fun loadData() {
-        viewmodel.getTvFavorite().observe(this, setTVShow)
+        viewmodel?.getTvFavorite()?.observe(this, setTVShow)
     }
 
-    private val setTVShow = Observer<MutableList<Movie>> {
-        adapter.setItem(it)
+    private val setTVShow = Observer<MovieResponse> {
+        movieResponse = it.copy()
+        it.results?.let { it1 -> adapter.setItem(it1) }
         onHideProgressbar()
     }
 

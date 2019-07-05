@@ -6,10 +6,12 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.base.ITabView
+import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_FRAGMENT
 import com.yeputra.moviecatalogue.utils.fragmentReplace
 import com.yeputra.moviecatalogue.utils.gone
 import com.yeputra.moviecatalogue.utils.visible
@@ -22,11 +24,13 @@ import kotlinx.android.synthetic.main.app_bar_tab.*
 
 
 class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
+    private var pageContent: Fragment = MovieFm()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val movie = MovieFm()
+        val movie = pageContent
         val tvShow = TVShowFm()
         val favorite = FavoriteFm()
 
@@ -34,21 +38,45 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
             when(it.itemId) {
                 R.id.menu_movie -> {
                     tablayout.gone()
+                    pageContent = movie
                     fragmentReplace(R.id.main_container, movie)
                 }
                 R.id.menu_tvshow -> {
                     tablayout.gone()
+                    pageContent = tvShow
                     fragmentReplace(R.id.main_container, tvShow)
                 }
                 R.id.menu_favorite -> {
                     tablayout.visible()
-                    fragmentReplace(R.id.main_container, favorite)
+                    pageContent = favorite
                 }
             }
+            fragmentReplace(R.id.main_container, pageContent)
             true
         }
-        button_navigation.selectedItemId = R.id.menu_movie
 
+        restoreSaveInstanceState(savedInstanceState)
+    }
+
+    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            supportFragmentManager.getFragment(it, INTENT_FRAGMENT)?.let { it2 ->
+                pageContent = it2
+                fragmentReplace(R.id.main_container, pageContent)
+
+                if (pageContent is FavoriteFm)
+                    tablayout.visible()
+                else
+                    tablayout.gone()
+            }
+        }?: run {
+            button_navigation.selectedItemId = R.id.menu_movie
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        supportFragmentManager.putFragment(outState, INTENT_FRAGMENT, pageContent)
     }
 
     override fun initViewModel(): MovieViewModel {

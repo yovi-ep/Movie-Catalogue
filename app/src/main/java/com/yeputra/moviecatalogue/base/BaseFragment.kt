@@ -18,7 +18,7 @@ abstract class BaseFragment<viewmodel : IBaseViewModel> : Fragment(), IBaseView 
 
     private var activity: IBaseView? = null
 
-    protected lateinit var viewmodel: viewmodel
+    protected var viewmodel: viewmodel? = null
 
     protected abstract fun initViewModel(): viewmodel
 
@@ -39,7 +39,7 @@ abstract class BaseFragment<viewmodel : IBaseViewModel> : Fragment(), IBaseView 
 
     override fun onDestroy() {
         super.onDestroy()
-        viewmodel.onDestroy()
+        viewmodel?.onDestroy()
     }
 
     override fun contextView(): Context = context as Context

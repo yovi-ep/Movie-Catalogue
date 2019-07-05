@@ -14,7 +14,8 @@ import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieResponse
-import com.yeputra.moviecatalogue.utils.Constans
+import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_DATA
+import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_DATA_2
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_movie.*
 class MovieFm : BaseFragment<MovieViewModel>() {
 
     private lateinit var adapter: MovieAdapter
+    private var movieResponse: MovieResponse? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
@@ -32,23 +34,41 @@ class MovieFm : BaseFragment<MovieViewModel>() {
 
         swiperefresh.setColorSchemeColors(ContextCompat.getColor(contextView(), R.color.colorAccent))
         swiperefresh.setOnRefreshListener {
-            viewmodel.getMovie().observe(this, setMovies)
+            viewmodel?.getMovie()?.observe(this, setMovies)
         }
 
         adapter = MovieAdapter { movie ->
             val `in` = Intent(contextView(), DetailMovieActivity::class.java)
-            `in`.putExtra(Constans.INTENT_DATA, movie)
-            `in`.putExtra(Constans.INTENT_DATA_2, FilmType.MOVIE)
+            `in`.putExtra(INTENT_DATA, movie)
+            `in`.putExtra(INTENT_DATA_2, FilmType.MOVIE)
             startActivity(`in`)
         }
 
         list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
-        viewmodel.getMovie().observe(this, setMovies)
+
+        restoreSaveInstanceState(savedInstanceState)
+    }
+
+    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            movieResponse = it.getParcelable(INTENT_DATA)
+            movieResponse?.let { it2 ->
+                it2.results?.let { it1 -> adapter.setItem(it1) }
+            }
+        }?: run {
+            viewmodel?.getMovie()?.observe(this, setMovies)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(INTENT_DATA, movieResponse)
     }
 
     private val setMovies = Observer<MovieResponse> {
+        movieResponse = it.copy()
         it.results?.let { it2 -> adapter.setItem(it2) }
     }
 
