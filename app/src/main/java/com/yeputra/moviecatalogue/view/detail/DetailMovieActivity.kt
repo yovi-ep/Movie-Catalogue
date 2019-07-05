@@ -11,11 +11,12 @@ import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.utils.Constans
-import com.yeputra.moviecatalogue.utils.toast
 import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
 import kotlinx.android.synthetic.main.activity_detail_movie.*
 import kotlinx.android.synthetic.main.app_bar.*
 class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
+
+    private lateinit var filmType: FilmType
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,7 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
         var year = ""
         var adult = ""
         val movie = intent.getParcelableExtra<Movie>(Constans.INTENT_DATA)
+        filmType = intent.getSerializableExtra(Constans.INTENT_DATA_2) as FilmType
 
         movie.release_date?.let {
             if (it.length > 4) year = "(${it.substring(0,4)})"
@@ -58,22 +60,21 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
             if (it.tag as Boolean) {
                 viewmodel.delete(movie.id.toString())
             } else {
-                viewmodel.add(movie, FilmType.MOVIE)
+                viewmodel.add(movie, filmType)
             }
-            viewmodel.isFavorited(movie.id.toString()).observe(this, setFlagFavorite)
+            viewmodel.isFavorite(movie.id.toString()).observe(this, setFlagFavorite)
         }
 
-        viewmodel.isFavorited(movie.id.toString()).observe(this, setFlagFavorite)
+        viewmodel.isFavorite(movie.id.toString()).observe(this, setFlagFavorite)
     }
 
-    val setFlagFavorite = Observer<Boolean> {
+    private val setFlagFavorite = Observer<Boolean> {
         bt_favorite.tag = it
         if (it) {
             bt_favorite.setImageResource(R.drawable.ic_favorite_selected)
         } else {
             bt_favorite.setImageResource(R.drawable.ic_favorite_unselect)
         }
-        toast(it.toString())
     }
 
     override fun setToolbar(): Toolbar = toolbar
@@ -85,6 +86,5 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
         vm.setupView(this)
         return vm
     }
-
 }
 

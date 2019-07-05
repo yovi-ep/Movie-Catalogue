@@ -33,6 +33,11 @@ class FavoriteViewModel : BaseViewModel() {
                     )
             )
             favoriteLiveData.postValue(true)
+
+            when (type) {
+                FilmType.MOVIE -> getMovieFavorite()
+                FilmType.TVSHOW -> getTvFavorite()
+            }
         }
     }
 
@@ -44,7 +49,7 @@ class FavoriteViewModel : BaseViewModel() {
         }
     }
 
-    fun isFavorited(filmId: String) : LiveData<Boolean> {
+    fun isFavorite(filmId: String) : LiveData<Boolean> {
         view?.contextView()?.let {
             favoriteService = FavoriteService(it)
             favoriteService.findOne(filmId) { data: MovieFavorite? ->
@@ -74,7 +79,7 @@ class FavoriteViewModel : BaseViewModel() {
         view?.contextView()?.let {
             favoriteService = FavoriteService(it)
             favoriteService.findAll(FilmType.TVSHOW) { data ->
-                movieLiveData.postValue(convertFavorite(data))
+                tvLiveData.postValue(convertFavorite(data))
             }
         }
         return tvLiveData

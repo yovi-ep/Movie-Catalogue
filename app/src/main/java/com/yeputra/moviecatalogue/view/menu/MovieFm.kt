@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
+import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
@@ -37,6 +38,7 @@ class MovieFm : BaseFragment<MovieViewModel>() {
         adapter = MovieAdapter { movie ->
             val `in` = Intent(contextView(), DetailMovieActivity::class.java)
             `in`.putExtra(Constans.INTENT_DATA, movie)
+            `in`.putExtra(Constans.INTENT_DATA_2, FilmType.MOVIE)
             startActivity(`in`)
         }
 
@@ -57,10 +59,10 @@ class MovieFm : BaseFragment<MovieViewModel>() {
     }
 
     override fun onShowProgressbar() {
-        swiperefresh.isRefreshing = true
+        swiperefresh?.isRefreshing = true
     }
 
     override fun onHideProgressbar() {
-        swiperefresh.isRefreshing = false
+        swiperefresh?.isRefreshing = false
     }
 }

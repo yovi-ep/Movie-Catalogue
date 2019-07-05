@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
+import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
@@ -30,19 +31,22 @@ class MovieFavoriteFm : BaseFragment<FavoriteViewModel>() {
         super.onActivityCreated(savedInstanceState)
 
         swiperefresh.setColorSchemeColors(ContextCompat.getColor(contextView(), R.color.colorAccent))
-        swiperefresh.setOnRefreshListener {
-            viewmodel.getMovieFavorite().observe(this, setMovies)
-        }
+        swiperefresh.setOnRefreshListener { loadData() }
 
         adapter = MovieAdapter { movie ->
             val `in` = Intent(contextView(), DetailMovieActivity::class.java)
             `in`.putExtra(Constans.INTENT_DATA, movie)
-            startActivity(`in`)
+            `in`.putExtra(Constans.INTENT_DATA_2, FilmType.MOVIE)
+            startActivityForResult(`in`, 0)
         }
 
         list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
+        loadData()
+    }
+
+    private fun loadData() {
         viewmodel.getMovieFavorite().observe(this, setMovies)
     }
 
@@ -58,10 +62,15 @@ class MovieFavoriteFm : BaseFragment<FavoriteViewModel>() {
     }
 
     override fun onShowProgressbar() {
-        swiperefresh.isRefreshing = true
+        swiperefresh?.isRefreshing = true
     }
 
     override fun onHideProgressbar() {
-        swiperefresh.isRefreshing = false
+        swiperefresh?.isRefreshing = false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        loadData()
     }
 }
