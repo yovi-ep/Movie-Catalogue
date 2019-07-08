@@ -11,6 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.base.ITabView
+import com.yeputra.moviecatalogue.utils.Constans.Companion.CHANGE_LOCAL
 import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_FRAGMENT
 import com.yeputra.moviecatalogue.utils.fragmentReplace
 import com.yeputra.moviecatalogue.utils.gone
@@ -69,7 +70,7 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
                 else
                     tablayout.gone()
             }
-        }?: run {
+        } ?: run {
             button_navigation.selectedItemId = R.id.menu_movie
         }
     }
@@ -91,7 +92,7 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_localization -> {
-                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+                startActivityForResult(Intent(Settings.ACTION_LOCALE_SETTINGS), CHANGE_LOCAL)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -100,4 +101,11 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
     override fun setToolbar(): Toolbar = toolbar
 
     override fun getTabLayout(): TabLayout? = tablayout
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CHANGE_LOCAL) {
+            button_navigation.selectedItemId = R.id.menu_movie
+        }
+    }
 }

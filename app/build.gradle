@@ -51,7 +51,7 @@ dependencies {
     /* Network */
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     /* Retrofit : convert for json converter */
-    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     /* retrofit : rx */
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     /* Rx */

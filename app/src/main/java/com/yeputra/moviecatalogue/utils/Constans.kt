@@ -13,5 +13,7 @@ interface Constans {
         const val INTENT_DATA = "INTENT_DATA"
         const val INTENT_DATA_2 = "INTENT_DATA_2"
         const val INTENT_FRAGMENT = "INTENT_FRAGMENT"
+
+        const val CHANGE_LOCAL = 20
     }
 }

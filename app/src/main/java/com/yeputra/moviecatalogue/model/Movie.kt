@@ -1,11 +1,13 @@
 package com.yeputra.moviecatalogue.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Movie(
         val id: Int?,
+        @SerializedName("title", alternate = ["name"])
         val title: String?,
         val overview: String?,
         val release_date: String?,
@@ -15,6 +17,7 @@ data class Movie(
         val adult: Boolean?,
         val genre_ids: MutableList<Int>?,
         val original_language: String?,
+        @SerializedName("original_title", alternate = ["original_name"])
         val original_title: String?,
         val popularity: Double?,
         val video: Boolean?,

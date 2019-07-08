@@ -17,12 +17,10 @@ class FavoriteDatabase(
         private var instance: FavoriteDatabase? = null
 
         @Synchronized
-        fun getInstance(ctx: Context): FavoriteDatabase {
-            if (instance == null) {
-                instance = FavoriteDatabase(ctx.applicationContext)
-            }
-            return instance!!
-        }
+        fun getInstance(ctx: Context) : FavoriteDatabase = (instance ?: run {
+            instance = FavoriteDatabase(ctx)
+            instance
+        }) as FavoriteDatabase
     }
 
     override fun onCreate(db: SQLiteDatabase) {
