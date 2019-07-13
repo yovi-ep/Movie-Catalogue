@@ -1,6 +1,5 @@
 package com.yeputra.moviecatalogue.view.detail
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -25,7 +24,6 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
         initViewConfigure()
     }
 
-    @SuppressLint("SetTextI18n")
     private fun initViewConfigure() {
         var year = ""
         var adult = ""
@@ -33,15 +31,15 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
         filmType = intent.getSerializableExtra(Constans.INTENT_DATA_2) as FilmType
 
         movie.release_date?.let {
-            if (it.length > 4) year = "(${it.substring(0,4)})"
+            if (it.length > 4) year = String.format("(%s)",it.substring(0,4))
         }
         movie.adult?.let {
             if (it) adult = " | 17+"
         }
 
         toolbar_title.text = movie.original_title
-        tv_title.text = "${movie.title?:"-"} $year"
-        tv_rating.text = movie.vote_average.toString() + adult
+        tv_title.text = String.format("%s %s", (movie.title?:"-"), year)
+        tv_rating.text = String.format("%s %s", movie.vote_average.toString(), adult)
         tv_overview.text = movie.overview
 
         Glide.with(this)

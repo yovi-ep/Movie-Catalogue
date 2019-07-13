@@ -18,15 +18,13 @@ import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
-
 class MovieFavoriteFm : BaseFragment<FavoriteViewModel>() {
 
     private lateinit var adapter: MovieAdapter
     private var movieResponse : MovieResponse? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_movie, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -62,9 +60,7 @@ class MovieFavoriteFm : BaseFragment<FavoriteViewModel>() {
         outState.putParcelable(Constans.INTENT_DATA, movieResponse)
     }
 
-    private fun loadData() {
-        viewmodel?.getMovieFavorite()?.observe(this, setMovies)
-    }
+    private fun loadData() = viewmodel?.getMovieFavorite()?.observe(this, setMovies)
 
     private val setMovies = Observer<MovieResponse> {
         movieResponse = it.copy()
@@ -72,11 +68,12 @@ class MovieFavoriteFm : BaseFragment<FavoriteViewModel>() {
         onHideProgressbar()
     }
 
-    override fun initViewModel(): FavoriteViewModel {
-        val vm = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
-        vm.setupView(this)
-        return vm
-    }
+    override fun initViewModel(): FavoriteViewModel = ViewModelProviders
+            .of(this)
+            .get(FavoriteViewModel::class.java)
+            .apply {
+                setupView(this@MovieFavoriteFm)
+            }
 
     override fun onShowProgressbar() {
         swiperefresh?.isRefreshing = true
@@ -91,3 +88,4 @@ class MovieFavoriteFm : BaseFragment<FavoriteViewModel>() {
         loadData()
     }
 }
+

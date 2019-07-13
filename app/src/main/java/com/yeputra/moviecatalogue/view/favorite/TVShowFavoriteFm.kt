@@ -24,9 +24,8 @@ class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
     private lateinit var adapter: MovieAdapter
     private var movieResponse : MovieResponse? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_movie, container, false)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -61,9 +60,7 @@ class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
         outState.putParcelable(Constans.INTENT_DATA, movieResponse)
     }
 
-    private fun loadData() {
-        viewmodel?.getTvFavorite()?.observe(this, setTVShow)
-    }
+    private fun loadData() = viewmodel?.getTvFavorite()?.observe(this, setTVShow)
 
     private val setTVShow = Observer<MovieResponse> {
         movieResponse = it.copy()
@@ -71,11 +68,12 @@ class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
         onHideProgressbar()
     }
 
-    override fun initViewModel(): FavoriteViewModel {
-        val vm = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
-        vm.setupView(this)
-        return vm
-    }
+    override fun initViewModel(): FavoriteViewModel = ViewModelProviders
+            .of(this)
+            .get(FavoriteViewModel::class.java)
+            .apply {
+                setupView(this@TVShowFavoriteFm)
+            }
 
     override fun onShowProgressbar() {
         swiperefresh?.isRefreshing = true

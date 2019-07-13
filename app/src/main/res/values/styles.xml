@@ -49,9 +49,6 @@
     </style>
 
     <!--___________ TEXT SIZE ___________-->
-    <style name="TextView.Small" parent="TextView">
-        <item name="android:textSize">12sp</item>
-    </style>
 
     <style name="TextView.Medium" parent="TextView">
         <item name="android:textSize">14sp</item>
@@ -65,21 +62,9 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="TextView.MultiExtraBig" parent="TextView">
-        <item name="android:textSize">46sp</item>
-    </style>
-
     <!--___________ TEXT BOLD ___________-->
 
-    <style name="TextView.SmallBold" parent="TextView.Small">
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="TextView.MediumBold" parent="TextView.Medium">
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextView.BigBold" parent="TextView.Big">
         <item name="android:textStyle">bold</item>
     </style>
 
