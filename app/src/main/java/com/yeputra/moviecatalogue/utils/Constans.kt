@@ -2,7 +2,7 @@ package com.yeputra.moviecatalogue.utils
 
 interface Constans {
     companion object {
-        const val BASE_URL = "https://api.themoviedb.org/3/discover/"
+        const val BASE_URL = "https://api.themoviedb.org/3/"
         const val POSTER_URL = "https://image.tmdb.org/t/p/"
 
         const val POSTER_MEDIUM = "/w185/"

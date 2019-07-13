@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_localization"
+        android:id="@+id/menu_search"
         android:enabled="true"
         android:title="@string/menu_localization"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"/>
 </menu>

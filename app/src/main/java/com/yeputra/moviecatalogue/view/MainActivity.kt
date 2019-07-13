@@ -2,7 +2,6 @@ package com.yeputra.moviecatalogue.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
@@ -91,8 +90,8 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_localization -> {
-                startActivityForResult(Intent(Settings.ACTION_LOCALE_SETTINGS), CHANGE_LOCAL)
+            R.id.menu_search -> {
+                startActivity(Intent(this, SearchActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
