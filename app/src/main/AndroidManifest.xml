@@ -12,7 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SearchActivity"></activity>
+
+        <!-- Services -->
+        <service
+            android:name=".services.DailyRemainderService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
+        <!-- Activity -->
+        <activity android:name=".view.setting.SettingsActivity" />
+        <activity android:name=".view.search.SearchActivity" />
         <activity android:name=".view.detail.DetailMovieActivity" />
         <activity
             android:name=".view.MainActivity"

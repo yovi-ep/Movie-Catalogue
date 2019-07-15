@@ -13,5 +13,13 @@
     <string name="lbl_favorite">Favorit</string>
 
     <string name="menu_localization">Ganti Bahasa</string>
+    <string name="menu_setting">Pengaturan</string>
 
+    <string name="daily_remainder_msg">Katalog file merindukanmu!</string>
+
+    <string name="setting_daily_remainder">Pengingat Harian</string>
+    <string name="setting_daily_remainder_detail">Pengingat kembali ke aplikasi</string>
+
+    <string name="setting_release_remainder">Pengingat Release</string>
+    <string name="setting_release_remainder_detail">Pengingat film terbaru hari ini</string>
 </resources>

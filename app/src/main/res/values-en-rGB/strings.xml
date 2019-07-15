@@ -10,4 +10,13 @@
     <string name="lbl_favorite">Favorite</string>
 
     <string name="menu_localization">Change Language</string>
+    <string name="menu_setting">Setting</string>
+
+    <string name="daily_remainder_msg">Movie Catalogue missing you!</string>
+
+    <string name="setting_daily_remainder">Daily Remainder</string>
+    <string name="setting_daily_remainder_detail">Remainder for return to app</string>
+
+    <string name="setting_release_remainder">Release Remainder</string>
+    <string name="setting_release_remainder_detail">Remainder showing the movie that released today</string>
 </resources>

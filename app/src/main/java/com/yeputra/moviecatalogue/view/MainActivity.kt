@@ -18,6 +18,8 @@ import com.yeputra.moviecatalogue.utils.visible
 import com.yeputra.moviecatalogue.view.menu.FavoriteFm
 import com.yeputra.moviecatalogue.view.menu.MovieFm
 import com.yeputra.moviecatalogue.view.menu.TVShowFm
+import com.yeputra.moviecatalogue.view.search.SearchActivity
+import com.yeputra.moviecatalogue.view.setting.SettingsActivity
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_tab.*
@@ -25,6 +27,7 @@ import kotlinx.android.synthetic.main.app_bar_tab.*
 
 class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
     private var pageContent: Fragment = MovieFm()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +95,9 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
         when (item.itemId) {
             R.id.menu_search -> {
                 startActivity(Intent(this, SearchActivity::class.java))
+            }
+            R.id.menu_setting -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)

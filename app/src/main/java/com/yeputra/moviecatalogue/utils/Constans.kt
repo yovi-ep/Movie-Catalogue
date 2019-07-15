@@ -15,5 +15,7 @@ interface Constans {
         const val INTENT_FRAGMENT = "INTENT_FRAGMENT"
 
         const val CHANGE_LOCAL = 20
+
+        const val DAILY_REMAINDER_TIME = 7
     }
 }

@@ -1,4 +1,4 @@
-package com.yeputra.moviecatalogue.view
+package com.yeputra.moviecatalogue.view.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -74,6 +74,10 @@ class SearchActivity : BaseToolbarActivity<MovieViewModel>() {
         list_item.layoutManager = GridLayoutManager(contextView(), 2)
         list_item.overScrollMode = View.OVER_SCROLL_NEVER
         list_item.adapter = adapter
+
+        bt_clear.setOnClickListener {
+            et_query.text.clear()
+        }
 
         RxTextView
                 .textChanges(et_query)
