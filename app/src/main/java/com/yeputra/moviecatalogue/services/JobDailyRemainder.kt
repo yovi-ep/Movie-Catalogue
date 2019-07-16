@@ -1,14 +1,17 @@
 package com.yeputra.moviecatalogue.services
 
+import android.content.Intent
+import android.util.Log
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.utils.NotifUtils
+import com.yeputra.moviecatalogue.view.MainActivity
 import java.util.*
 
-class DailyRemainderService : JobService() {
+class JobDailyRemainder : JobService() {
     private val NOTIF_ID = 902389623
 
     override fun onStartJob(job: JobParameters?): Boolean {
@@ -22,15 +25,17 @@ class DailyRemainderService : JobService() {
 
     private fun checkingRemainderTime(job: JobParameters?) {
         job?.let {
-
             if (SettingPref(applicationContext).dailyRemainder) {
+                Log.d(NOTIF_ID.toString(), "--")
+
                 val cal = Calendar.getInstance()
                 if (cal.get(Calendar.HOUR_OF_DAY) == Constans.DAILY_REMAINDER_TIME) {
                     NotifUtils.showNotification(
                             applicationContext,
                             applicationContext.getString(R.string.app_name),
                             applicationContext.getString(R.string.daily_remainder_msg),
-                            NOTIF_ID)
+                            NOTIF_ID,
+                            Intent(applicationContext, MainActivity::class.java))
                 }
             }
 

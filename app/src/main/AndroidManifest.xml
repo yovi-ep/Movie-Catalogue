@@ -15,7 +15,15 @@
 
         <!-- Services -->
         <service
-            android:name=".services.DailyRemainderService"
+            android:name=".services.JobDailyRemainder"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.JobReleaseRemainder"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />

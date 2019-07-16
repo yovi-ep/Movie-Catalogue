@@ -1,16 +1,32 @@
 package com.yeputra.moviecatalogue.view.setting
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.firebase.jobdispatcher.*
+import android.provider.Settings
+import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProviders
 import com.yeputra.moviecatalogue.R
+import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
-import com.yeputra.moviecatalogue.services.DailyRemainderService
+import com.yeputra.moviecatalogue.services.RemainderService
+import com.yeputra.moviecatalogue.utils.Constans
+import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
+import kotlinx.android.synthetic.main.app_bar.*
 import kotlinx.android.synthetic.main.settings_activity.*
+import java.util.*
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
+
     private lateinit var setting: SettingPref
-    private lateinit var mDispatcher: FirebaseJobDispatcher
+    private lateinit var remainderService: RemainderService
+
+    override fun setToolbar(): Toolbar = toolbar
+
+    override fun setButtonBack(): Boolean = true
+
+    override fun initViewModel(): MovieViewModel = ViewModelProviders
+            .of(this)
+            .get(MovieViewModel::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +38,12 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupData() {
         setting = SettingPref(this)
-        mDispatcher = FirebaseJobDispatcher(GooglePlayDriver(this))
+        remainderService = RemainderService(this)
 
+        toolbar_title.text = getString(R.string.menu_setting)
         sw_daily_remainder.isChecked = setting.dailyRemainder
         sw_release_remainder.isChecked = setting.releaseRemainder
+        tv_desc_language.text = Locale.getDefault().displayCountry
     }
 
     private fun setupAppearance() {
@@ -37,44 +55,34 @@ class SettingsActivity : AppCompatActivity() {
             sw_release_remainder.isChecked = !sw_release_remainder.isChecked
         }
 
-        sw_daily_remainder.setOnCheckedChangeListener { _, isChecked ->
-            SettingPref(this).dailyRemainder = isChecked
+        sw_release_remainder.setOnCheckedChangeListener { _, isChecked ->
+            setting.releaseRemainder = isChecked
 
             if (isChecked)
-                startDailyRemainder()
+                remainderService.startReleaseRemainder()
             else
-                stopDailyRemainder()
+                remainderService.stopReleaseRemainder()
+        }
+
+        sw_daily_remainder.setOnCheckedChangeListener { _, isChecked ->
+            setting.dailyRemainder = isChecked
+
+            if (isChecked)
+                remainderService.startDailyRemainder()
+            else
+                remainderService.stopDailyRemainder()
+        }
+
+        layout_language.setOnClickListener {
+            startActivityForResult(Intent(Settings.ACTION_LOCALE_SETTINGS), Constans.CHANGE_LOCAL)
         }
     }
 
-    private fun startDailyRemainder() {
-        val myJob = mDispatcher.newJobBuilder()
-                .setService(DailyRemainderService::class.java)
-                .setTag(packageName)
-                .setRecurring(true)
-                .setLifetime(Lifetime.FOREVER)
-                .setTrigger(Trigger.executionWindow(0, 360))
-                .setReplaceCurrent(true)
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                .setConstraints(
-                        // hanya berjalan saat ada koneksi yang unmetered (contoh Wifi)
-                        /*Constraint.ON_UNMETERED_NETWORK,*/
-                        // hanya berjalan ketika device di charge
-                        /*Constraint.DEVICE_CHARGING*/
-
-                        // berjalan saat ada koneksi internet
-                        //Constraint.ON_ANY_NETWORK
-
-                        // berjalan saat device dalam kondisi idle
-                        Constraint.DEVICE_IDLE
-                )
-                /*.setExtras(myExtrasBundle)*/
-                .build()
-
-        mDispatcher.mustSchedule(myJob)
-    }
-
-    private fun stopDailyRemainder() {
-        mDispatcher.cancel(packageName)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constans.CHANGE_LOCAL) {
+            setResult(requestCode)
+            finish()
+        }
     }
 }

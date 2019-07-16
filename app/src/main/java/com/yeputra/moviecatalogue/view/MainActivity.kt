@@ -97,7 +97,7 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
                 startActivity(Intent(this, SearchActivity::class.java))
             }
             R.id.menu_setting -> {
-                startActivity(Intent(this, SettingsActivity::class.java))
+                startActivityForResult(Intent(this, SettingsActivity::class.java), CHANGE_LOCAL)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -109,7 +109,7 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CHANGE_LOCAL) {
+        if (resultCode == CHANGE_LOCAL) {
             button_navigation.selectedItemId = R.id.menu_movie
         }
     }

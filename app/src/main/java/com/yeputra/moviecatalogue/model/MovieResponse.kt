@@ -18,3 +18,11 @@ data class SearchResponse(
         val total_pages: Int?,
         val total_results: Int?
 ) : Parcelable
+
+@Parcelize
+data class ReleaseResponse(
+        val page: Int?,
+        val results: MutableList<Movie>?,
+        val total_pages: Int?,
+        val total_results: Int?
+) : Parcelable

@@ -16,6 +16,7 @@ interface Constans {
 
         const val CHANGE_LOCAL = 20
 
-        const val DAILY_REMAINDER_TIME = 7
+        const val DAILY_REMAINDER_TIME = 8
+        const val RELEASE_REMAINDER_TIME = 8
     }
 }
