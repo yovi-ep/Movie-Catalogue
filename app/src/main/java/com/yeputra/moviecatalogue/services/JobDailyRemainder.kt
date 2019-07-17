@@ -1,7 +1,6 @@
 package com.yeputra.moviecatalogue.services
 
 import android.content.Intent
-import android.util.Log
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
 import com.yeputra.moviecatalogue.R
@@ -26,16 +25,9 @@ class JobDailyRemainder : JobService() {
     private fun checkingRemainderTime(job: JobParameters?) {
         job?.let {
             if (SettingPref(applicationContext).dailyRemainder) {
-                Log.d(NOTIF_ID.toString(), "--")
-
                 val cal = Calendar.getInstance()
                 if (cal.get(Calendar.HOUR_OF_DAY) == Constans.DAILY_REMAINDER_TIME) {
-                    NotifUtils.showNotification(
-                            applicationContext,
-                            applicationContext.getString(R.string.app_name),
-                            applicationContext.getString(R.string.daily_remainder_msg),
-                            NOTIF_ID,
-                            Intent(applicationContext, MainActivity::class.java))
+                    sendNotification()
                 }
             }
 
@@ -43,5 +35,12 @@ class JobDailyRemainder : JobService() {
         }
     }
 
-
+    private fun sendNotification() {
+        val intent = Intent(applicationContext, MainActivity::class.java)
+        NotifUtils.showNotification(
+                applicationContext,
+                applicationContext.getString(R.string.app_name),
+                applicationContext.getString(R.string.daily_remainder_msg),
+                NOTIF_ID, intent)
+    }
 }

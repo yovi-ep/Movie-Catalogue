@@ -27,6 +27,7 @@ object NotifUtils {
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.black))
                 .setSound(alarmSound)
+                .setAutoCancel(true)
                 .setContentIntent(getPendingIntent(context, pendingIntent))
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

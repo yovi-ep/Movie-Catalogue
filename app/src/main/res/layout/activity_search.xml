@@ -71,8 +71,6 @@
             android:id="@+id/list_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/margin_extra_small"
-            android:paddingEnd="@dimen/margin_extra_small"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/item_movie">

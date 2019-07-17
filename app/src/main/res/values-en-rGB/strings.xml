@@ -18,4 +18,5 @@
 
     <string name="setting_release_remainder">Release Remainder</string>
     <string name="setting_release_remainder_detail">Remainder showing the movie that released today</string>
+    <string name="release_remainder_msg">%s has bean release today!</string>
 </resources>

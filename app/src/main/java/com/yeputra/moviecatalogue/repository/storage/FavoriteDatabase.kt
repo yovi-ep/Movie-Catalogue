@@ -1,6 +1,5 @@
 package com.yeputra.moviecatalogue.repository.storage
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.yeputra.moviecatalogue.model.MovieFavorite
@@ -13,7 +12,6 @@ class FavoriteDatabase(
     context, DB_FAVORITE, null, 2
 ) {
     companion object {
-        @SuppressLint("StaticFieldLeak")
         private var instance: FavoriteDatabase? = null
 
         @Synchronized
