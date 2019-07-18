@@ -23,4 +23,6 @@
     <string name="setting_release_remainder">Pengingat Release</string>
     <string name="setting_release_remainder_detail">Pengingat film terbaru hari ini</string>
     <string name="release_remainder_msg">%s telah rilis hari ini!</string>
+
+    <string name="empty_data">Data kosong</string>
 </resources>
