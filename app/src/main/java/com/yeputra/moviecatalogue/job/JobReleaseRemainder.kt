@@ -1,6 +1,7 @@
-package com.yeputra.moviecatalogue.services
+package com.yeputra.moviecatalogue.job
 
 import android.content.Intent
+import android.util.Log
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
 import com.yeputra.moviecatalogue.R
@@ -16,15 +17,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class JobReleaseRemainder : JobService() {
+    private val TAG = JobReleaseRemainder::class.java.simpleName
     private val NOTIF_ID = 6355080
     private var subsriber: Disposable? = null
 
     override fun onStartJob(job: JobParameters?): Boolean {
+        Log.d(TAG, "started")
         checkingRemainderTime(job)
         return true
     }
 
     override fun onStopJob(job: JobParameters?): Boolean {
+        Log.d(TAG, "stopped")
         subsriber?.dispose()
         return true
     }

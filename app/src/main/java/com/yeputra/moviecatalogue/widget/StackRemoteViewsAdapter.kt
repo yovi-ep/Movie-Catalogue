@@ -2,6 +2,7 @@ package com.yeputra.moviecatalogue.widget
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.yeputra.moviecatalogue.model.FilmType
@@ -9,15 +10,13 @@ import com.yeputra.moviecatalogue.model.MovieFavorite
 import com.yeputra.moviecatalogue.repository.storage.FavoriteService
 import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_MEDIUM
 import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_URL
-import java.io.IOException
-import java.net.MalformedURLException
 import java.net.URL
 
 
 class StackRemoteViewsAdapter(
         val context: Context
 ) : RemoteViewsService.RemoteViewsFactory {
-    private val TAG_JOB_WIDGET = "JOB_WIDGET"
+    private val TAG = StackRemoteViewsAdapter::class.java.simpleName
     private val mWidgetItems = mutableListOf<MovieFavorite>()
     private val favorite = FavoriteService(context)
 
@@ -55,10 +54,8 @@ class StackRemoteViewsAdapter(
             val bitmap = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
             rv.setImageViewBitmap(com.yeputra.moviecatalogue.R.id.imageView, bitmap)
             rv.setTextViewText(com.yeputra.moviecatalogue.R.id.tv_title, movie.origTitle)
-        } catch (e: MalformedURLException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            Log.e(TAG, e.message)
         }
         return rv
     }

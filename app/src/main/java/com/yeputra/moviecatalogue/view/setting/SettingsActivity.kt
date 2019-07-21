@@ -7,8 +7,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
+import com.yeputra.moviecatalogue.job.JobFactory
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
-import com.yeputra.moviecatalogue.services.RemainderService
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.app_bar.*
@@ -18,7 +18,7 @@ import java.util.*
 class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
     private lateinit var setting: SettingPref
-    private lateinit var remainderService: RemainderService
+    private lateinit var remainderService: JobFactory
 
     override fun setToolbar(): Toolbar = toolbar
 
@@ -38,7 +38,7 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
     private fun setupData() {
         setting = SettingPref(this)
-        remainderService = RemainderService(this)
+        remainderService = JobFactory(this)
 
         toolbar_title.text = getString(R.string.menu_setting)
         sw_daily_remainder.isChecked = setting.dailyRemainder

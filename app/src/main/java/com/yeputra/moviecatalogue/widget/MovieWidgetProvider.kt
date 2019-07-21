@@ -6,17 +6,37 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 import com.yeputra.moviecatalogue.R
+import com.yeputra.moviecatalogue.job.JobFactory
 
 
 /**
  * Implementation of App Widget functionality.
  */
 class MovieWidgetProvider : AppWidgetProvider() {
-
     companion object {
         private const val TOAST_ACTION = "com.yeputra.moviecatalogue.TOAST_ACTION"
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onEnabled(context: Context?) {
+        super.onEnabled(context)
+
+        context?.let {
+            JobFactory(context).startUpdateWidgetContent()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onDisabled(context: Context?) {
+        super.onDisabled(context)
+
+        context?.let {
+            JobFactory(context).stopUpdateWidgetContent()
+        }
     }
 
     private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {

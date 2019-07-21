@@ -28,21 +28,22 @@
 
         <!-- Services -->
         <service
-            android:name=".services.JobDailyRemainder"
+            android:name=".job.JobDailyRemainder"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
         <service
-            android:name=".services.JobReleaseRemainder"
+            android:name=".job.JobReleaseRemainder"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-        <service android:name=".services.JobUpdateWidget"
-            android:exported="false">
+        <service android:name=".job.JobUpdateWidget"
+            android:exported="false"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
