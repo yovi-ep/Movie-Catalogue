@@ -8,6 +8,7 @@ import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.repository.api.ApiMovie
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
+import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.utils.NotifUtils
 import com.yeputra.moviecatalogue.utils.RestClient
 import com.yeputra.moviecatalogue.utils.RxUtils
@@ -21,28 +22,33 @@ class JobReleaseRemainder : JobService() {
     private val NOTIF_ID = 6355080
     private var subsriber: Disposable? = null
 
-    override fun onStartJob(job: JobParameters?): Boolean {
+    override fun onStartJob(job: JobParameters): Boolean {
         Log.d(TAG, "started")
         checkingRemainderTime(job)
         return true
     }
 
-    override fun onStopJob(job: JobParameters?): Boolean {
+    override fun onStopJob(job: JobParameters): Boolean {
         Log.d(TAG, "stopped")
         subsriber?.dispose()
         return true
     }
 
-    private fun checkingRemainderTime(job: JobParameters?) {
-        job?.let {
-            if (SettingPref(applicationContext).dailyRemainder) {
-                val cal = Calendar.getInstance()
-                if (cal.get(Calendar.HOUR_OF_DAY) == 6){//Constans.RELEASE_REMAINDER_TIME) {
+    private fun checkingRemainderTime(job: JobParameters) {
+        val pref = SettingPref(applicationContext)
+        val cal = Calendar.getInstance()
+
+        if (pref.releaseRemainder) {
+            if (cal.get(Calendar.HOUR_OF_DAY) == Constans.RELEASE_REMAINDER_TIME) {
+                if (!pref.isRemaindRelease) {
+                    pref.isRemaindRelease = true
                     getReleaseMovie(cal.time)
                 }
+            } else {
+                pref.isRemaindRelease = false
             }
-            jobFinished(it, false)
         }
+        jobFinished(job, false)
     }
 
     private fun getReleaseMovie(date: Date) {
@@ -65,7 +71,7 @@ class JobReleaseRemainder : JobService() {
             val intent = Intent(applicationContext, MainActivity::class.java)
             val msg = String.format(getString(R.string.release_remainder_msg, movie.original_title))
 
-            NotifUtils.showNotification(
+            NotifUtils.showStackNotification(
                     applicationContext,
                     it, msg,
                     NOTIF_ID, intent

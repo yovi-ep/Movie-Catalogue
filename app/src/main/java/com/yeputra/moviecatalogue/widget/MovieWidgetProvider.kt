@@ -6,9 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.widget.RemoteViews
-import androidx.annotation.RequiresApi
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.job.JobFactory
 
@@ -21,7 +19,6 @@ class MovieWidgetProvider : AppWidgetProvider() {
         private const val TOAST_ACTION = "com.yeputra.moviecatalogue.TOAST_ACTION"
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onEnabled(context: Context?) {
         super.onEnabled(context)
 
@@ -30,7 +27,6 @@ class MovieWidgetProvider : AppWidgetProvider() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onDisabled(context: Context?) {
         super.onDisabled(context)
 

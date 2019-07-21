@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
+import com.yeputra.moviecatalogue.job.JobDailyRemainder
 import com.yeputra.moviecatalogue.job.JobFactory
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
 import com.yeputra.moviecatalogue.utils.Constans
@@ -19,6 +20,7 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
     private lateinit var setting: SettingPref
     private lateinit var remainderService: JobFactory
+    private lateinit var jobDailyRemainder: JobDailyRemainder
 
     override fun setToolbar(): Toolbar = toolbar
 
@@ -39,6 +41,7 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
     private fun setupData() {
         setting = SettingPref(this)
         remainderService = JobFactory(this)
+        jobDailyRemainder = JobDailyRemainder()
 
         toolbar_title.text = getString(R.string.menu_setting)
         sw_daily_remainder.isChecked = setting.dailyRemainder
@@ -57,6 +60,7 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
         sw_release_remainder.setOnCheckedChangeListener { _, isChecked ->
             setting.releaseRemainder = isChecked
+            setting.isRemaindRelease = false
 
             if (isChecked)
                 remainderService.startReleaseRemainder()
@@ -66,6 +70,7 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
         sw_daily_remainder.setOnCheckedChangeListener { _, isChecked ->
             setting.dailyRemainder = isChecked
+            setting.isRemaindDaily = false
 
             if (isChecked)
                 remainderService.startDailyRemainder()

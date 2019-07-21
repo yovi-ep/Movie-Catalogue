@@ -7,40 +7,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10">
+        android:background="@color/transparent_black">
 
         <StackView
             android:id="@+id/stack_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:loopViews="true" />
 
         <TextView
             android:id="@+id/banner_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/transparent_black"
+            android:gravity="center"
             android:text="@string/app_name"
+            style="@style/TextView.ExtraBigBold"
             android:textAlignment="center"
-            android:textColor="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/colorAccent"
         android:text="@string/empty_data"
         android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:visibility="gone"
+        style="@style/TextView.Medium"/>
 
 </FrameLayout>

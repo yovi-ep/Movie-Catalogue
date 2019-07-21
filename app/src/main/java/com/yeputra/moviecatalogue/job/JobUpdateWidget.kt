@@ -46,7 +46,7 @@ class JobUpdateWidget : JobService() {
                 rv.setTextViewText(R.id.tv_title, movie.origTitle)
                 manager.updateAppWidget(theWidget, rv)
             } catch (e: Exception) {
-                Log.e(TAG, e.message)
+                Log.e(TAG, e.toString())
                 return true
             }
         }

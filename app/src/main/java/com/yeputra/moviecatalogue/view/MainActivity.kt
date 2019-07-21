@@ -12,6 +12,7 @@ import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.base.ITabView
 import com.yeputra.moviecatalogue.utils.Constans.Companion.CHANGE_LOCAL
 import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_FRAGMENT
+import com.yeputra.moviecatalogue.utils.NotifUtils
 import com.yeputra.moviecatalogue.utils.fragmentReplace
 import com.yeputra.moviecatalogue.utils.gone
 import com.yeputra.moviecatalogue.utils.visible
@@ -27,7 +28,6 @@ import kotlinx.android.synthetic.main.app_bar_tab.*
 
 class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
     private var pageContent: Fragment = MovieFm()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,6 +101,11 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        NotifUtils.resetStackNotification()
     }
 
     override fun setToolbar(): Toolbar = toolbar

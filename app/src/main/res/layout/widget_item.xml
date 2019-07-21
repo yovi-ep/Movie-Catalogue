@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/transparent_black">
 
     <ImageView
         android:id="@+id/imageView"
@@ -11,15 +12,16 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        tools:srcCompat="@drawable/ic_star" />
+        tools:srcCompat="@drawable/ic_star"
+        android:contentDescription="@string/description" />
 
     <TextView
         android:id="@+id/tv_title"
         android:background="@color/transparent_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/TextView.Medium"
-        android:textColor="@color/white"
-        android:gravity="center"
-        tools:text="Text"/>
+        style="@style/TextView.Big"
+        android:padding="@dimen/margin_small"
+        android:text="@string/app_name"
+        android:textColor="@color/white"/>
 </LinearLayout>

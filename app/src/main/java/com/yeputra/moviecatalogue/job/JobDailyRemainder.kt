@@ -1,10 +1,10 @@
 package com.yeputra.moviecatalogue.job
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
-import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.utils.NotifUtils
@@ -13,7 +13,6 @@ import java.util.*
 
 class JobDailyRemainder : JobService() {
     private val TAG = JobDailyRemainder::class.java.simpleName
-    private val NOTIF_ID = 902389623
 
     override fun onStartJob(job: JobParameters): Boolean {
         Log.d(TAG, "started")
@@ -27,22 +26,29 @@ class JobDailyRemainder : JobService() {
     }
 
     private fun checkingRemainderTime(job: JobParameters) {
-        if (SettingPref(applicationContext).dailyRemainder) {
-            val cal = Calendar.getInstance()
+        val pref = SettingPref(applicationContext)
+        val cal = Calendar.getInstance()
+
+        if (pref.dailyRemainder) {
             if (cal.get(Calendar.HOUR_OF_DAY) == Constans.DAILY_REMAINDER_TIME) {
-                sendNotification()
+                if (!pref.isRemaindDaily) {
+                    sendNotification(applicationContext)
+                    pref.isRemaindDaily = true
+                }
+            } else {
+                pref.isRemaindDaily = false
             }
         }
 
         jobFinished(job, false)
     }
 
-    private fun sendNotification() {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+    private fun sendNotification(context: Context) {
+        val intent = Intent(context, MainActivity::class.java)
         NotifUtils.showNotification(
-                applicationContext,
-                applicationContext.getString(R.string.app_name),
-                applicationContext.getString(R.string.daily_remainder_msg),
-                NOTIF_ID, intent)
+                context,
+                context.getString(com.yeputra.moviecatalogue.R.string.app_name),
+                context.getString(com.yeputra.moviecatalogue.R.string.daily_remainder_msg),
+                JobFactory.ID_DAILY_REMAINDER, intent)
     }
 }
