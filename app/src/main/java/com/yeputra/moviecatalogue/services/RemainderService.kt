@@ -15,7 +15,7 @@ class RemainderService(val context: Context) {
                 .setTag(TAG_DAILY)
                 .setRecurring(true)
                 .setLifetime(Lifetime.FOREVER)
-                .setTrigger(Trigger.executionWindow(0, 3600))
+                .setTrigger(Trigger.executionWindow(3600, 3610))
                 .setReplaceCurrent(true)
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setConstraints(
@@ -36,7 +36,7 @@ class RemainderService(val context: Context) {
                 .setTag(TAG_RELEASE)
                 .setRecurring(true)
                 .setLifetime(Lifetime.FOREVER)
-                .setTrigger(Trigger.executionWindow(0, 3600))
+                .setTrigger(Trigger.executionWindow(3600, 3610))
                 .setReplaceCurrent(true)
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setConstraints(

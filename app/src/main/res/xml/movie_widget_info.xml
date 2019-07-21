@@ -3,7 +3,7 @@
     android:initialKeyguardLayout="@layout/movie_widget"
     android:initialLayout="@layout/movie_widget"
     android:minHeight="110dp"
-    android:minWidth="250dp"
+    android:minWidth="220dp"
     android:previewImage="@drawable/ic_star"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0"
