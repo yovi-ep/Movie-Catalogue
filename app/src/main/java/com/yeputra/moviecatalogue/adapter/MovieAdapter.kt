@@ -29,6 +29,28 @@ class MovieAdapter(
                         .inflate(R.layout.item_movie, parent, false))
     }
 
+
+    override fun onFiltering(query: String?): MutableList<Movie> {
+        return if (query?.isNotEmpty() == true) {
+            val filterData = mutableListOf<Movie>()
+
+            for (i in 0 until itemCount) {
+                getItem(i)?.let {
+                    val title = it.title?.toLowerCase()?:""
+                    val origTitle = it.original_title?.toLowerCase()?:""
+                    val q = query.toLowerCase()
+
+                    if (title.contains(q) || origTitle.contains(q)) {
+                        filterData.add(it)
+                    }
+                }
+            }
+            filterData
+        } else {
+            super.onFiltering(query)
+        }
+    }
+
     class VHolder(override val containerView: View)
         : RecyclerView.ViewHolder(containerView), LayoutContainer {
 

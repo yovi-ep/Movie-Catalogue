@@ -3,22 +3,27 @@ package com.yeputra.moviecatalogue.view.menu
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.jakewharton.rxbinding.widget.RxSearchView
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieResponse
+import com.yeputra.moviecatalogue.utils.Constans.Companion.CHANGE_LOCAL
 import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_DATA
 import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_DATA_2
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
+import rx.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
 
 class MovieFm : BaseFragment<MovieViewModel>() {
 
@@ -78,11 +83,35 @@ class MovieFm : BaseFragment<MovieViewModel>() {
         return vm
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val mSearch = menu.findItem(R.id.menu_search)
+        val searchView = mSearch.actionView as android.widget.SearchView
+
+        RxSearchView
+                .queryTextChanges(searchView)
+                .debounce(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it.toString()
+                }
+                .subscribe {
+                    adapter.filter.filter(it)
+                }
+        super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onShowProgressbar() {
         swiperefresh?.isRefreshing = true
     }
 
     override fun onHideProgressbar() {
         swiperefresh?.isRefreshing = false
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == CHANGE_LOCAL) {
+            viewmodel?.getMovie()?.observe(this, setMovies)
+        }
     }
 }

@@ -5,9 +5,10 @@
     <item
         android:id="@+id/menu_search"
         android:enabled="true"
-        android:title="@string/menu_localization"
+        android:title="@string/menu_setting"
         android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"/>
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>
 
     <item
         android:id="@+id/menu_setting"

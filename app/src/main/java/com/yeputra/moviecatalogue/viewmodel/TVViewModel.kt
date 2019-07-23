@@ -22,16 +22,6 @@ class TVViewModel : BaseViewModel() {
         return movieLiveData
     }
 
-    fun searchTVShow(query: String) : LiveData<SearchResponse> {
-        view?.onShowProgressbar()
-        subscriber = api<ApiTV>()
-                .searchTV(getLocale(), query)
-                .compose(RxUtils.applyObservableAsync())
-                .subscribe(onSuccess(), onFailed())
-
-        return searchTVLiveData
-    }
-
     override fun onResponseSuccess(data: Any) {
         when (data) {
             is MovieResponse -> {

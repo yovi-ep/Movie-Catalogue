@@ -2,6 +2,7 @@ package com.yeputra.moviecatalogue.view.menu
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
@@ -36,4 +37,8 @@ class FavoriteFm : BaseFragment<FavoriteViewModel>() {
         (activity as ITabView).getTabLayout()?.setupWithViewPager(viewpager)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.menu_search).isVisible = false
+    }
 }

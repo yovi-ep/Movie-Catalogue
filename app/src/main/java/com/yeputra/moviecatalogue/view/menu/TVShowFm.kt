@@ -3,21 +3,26 @@ package com.yeputra.moviecatalogue.view.menu
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import com.jakewharton.rxbinding.widget.RxSearchView
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.utils.Constans
+import com.yeputra.moviecatalogue.utils.Constans.Companion.CHANGE_LOCAL
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
+import rx.android.schedulers.AndroidSchedulers
+import java.util.concurrent.TimeUnit
 
 class TVShowFm : BaseFragment<TVViewModel>() {
     private lateinit var adapter: MovieAdapter
@@ -76,6 +81,23 @@ class TVShowFm : BaseFragment<TVViewModel>() {
         return vm
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        val mSearch = menu.findItem(R.id.menu_search)
+        val searchView = mSearch.actionView as android.widget.SearchView
+
+        RxSearchView
+                .queryTextChanges(searchView)
+                .debounce(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .map {
+                    it.toString()
+                }
+                .subscribe {
+                    adapter.filter.filter(it)
+                }
+    }
+
     override fun onShowProgressbar() {
         swiperefresh?.isRefreshing = true
     }
@@ -84,4 +106,10 @@ class TVShowFm : BaseFragment<TVViewModel>() {
         swiperefresh?.isRefreshing = false
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == CHANGE_LOCAL) {
+            viewmodel?.getTVShow()?.observe(this, setTVShow)
+        }
+    }
 }

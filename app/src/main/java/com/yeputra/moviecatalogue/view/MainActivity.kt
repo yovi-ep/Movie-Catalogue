@@ -19,7 +19,6 @@ import com.yeputra.moviecatalogue.utils.visible
 import com.yeputra.moviecatalogue.view.menu.FavoriteFm
 import com.yeputra.moviecatalogue.view.menu.MovieFm
 import com.yeputra.moviecatalogue.view.menu.TVShowFm
-import com.yeputra.moviecatalogue.view.search.SearchActivity
 import com.yeputra.moviecatalogue.view.setting.SettingsActivity
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -93,9 +92,6 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_search -> {
-                startActivity(Intent(this, SearchActivity::class.java))
-            }
             R.id.menu_setting -> {
                 startActivityForResult(Intent(this, SettingsActivity::class.java), CHANGE_LOCAL)
             }
