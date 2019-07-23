@@ -1,5 +1,7 @@
 package com.yeputra.moviecatalogue.view.detail
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
@@ -11,6 +13,7 @@ import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
+import com.yeputra.moviecatalogue.widget.MovieWidgetProvider
 import kotlinx.android.synthetic.main.activity_detail_movie.*
 import kotlinx.android.synthetic.main.app_bar.*
 class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
@@ -61,6 +64,7 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
                 viewmodel.add(movie, filmType)
             }
             viewmodel.isFavorite(movie.id.toString()).observe(this, setFlagFavorite)
+            updateWidget()
         }
 
         viewmodel.isFavorite(movie.id.toString()).observe(this, setFlagFavorite)
@@ -73,6 +77,13 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
         } else {
             bt_favorite.setImageResource(R.drawable.ic_favorite_unselect)
         }
+    }
+
+    private fun updateWidget() {
+        val manager = AppWidgetManager.getInstance(this)
+        val theWidget = ComponentName(this, MovieWidgetProvider::class.java)
+        val id = manager.getAppWidgetIds(theWidget)
+        manager.notifyAppWidgetViewDataChanged(id, R.id.stack_view)
     }
 
     override fun setToolbar(): Toolbar = toolbar

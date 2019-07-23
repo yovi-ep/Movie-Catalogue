@@ -86,7 +86,7 @@ class FavoriteViewModel : BaseViewModel() {
         return tvLiveData
     }
 
-    private fun convertFavorite(data: MutableList<MovieFavorite>) : MovieResponse {
+    fun convertFavorite(data: MutableList<MovieFavorite>) : MovieResponse {
         val result = mutableListOf<Movie>()
         data.forEach {
             result.add(Movie(

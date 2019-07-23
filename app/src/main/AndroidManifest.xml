@@ -41,17 +41,9 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-        <service android:name=".job.JobUpdateWidget"
-            android:exported="false"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
 
         <!-- Activity -->
         <activity android:name=".view.setting.SettingsActivity" />
-        <activity android:name=".view.search.SearchActivity" />
         <activity android:name=".view.detail.DetailMovieActivity" />
         <activity
             android:name=".view.MainActivity"

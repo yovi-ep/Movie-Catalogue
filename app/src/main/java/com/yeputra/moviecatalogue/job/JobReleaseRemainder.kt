@@ -5,6 +5,7 @@ import android.util.Log
 import com.firebase.jobdispatcher.JobParameters
 import com.firebase.jobdispatcher.JobService
 import com.yeputra.moviecatalogue.R
+import com.yeputra.moviecatalogue.job.JobFactory.Companion.ID_RELEASE_REMAINDER
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.repository.api.ApiMovie
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
@@ -19,7 +20,6 @@ import java.util.*
 
 class JobReleaseRemainder : JobService() {
     private val TAG = JobReleaseRemainder::class.java.simpleName
-    private val NOTIF_ID = 6355080
     private var subsriber: Disposable? = null
 
     override fun onStartJob(job: JobParameters): Boolean {
@@ -74,7 +74,7 @@ class JobReleaseRemainder : JobService() {
             NotifUtils.showStackNotification(
                     applicationContext,
                     it, msg,
-                    NOTIF_ID, intent
+                    ID_RELEASE_REMAINDER, intent
             )
         }
     }

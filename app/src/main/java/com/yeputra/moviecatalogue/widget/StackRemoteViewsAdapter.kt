@@ -5,9 +5,9 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import com.yeputra.moviecatalogue.model.FilmType
+import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.model.MovieFavorite
-import com.yeputra.moviecatalogue.repository.storage.FavoriteService
+import com.yeputra.moviecatalogue.presenter.WidgetPresenter
 import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_MEDIUM
 import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_URL
 import java.net.URL
@@ -18,7 +18,7 @@ class StackRemoteViewsAdapter(
 ) : RemoteViewsService.RemoteViewsFactory {
     private val TAG = StackRemoteViewsAdapter::class.java.simpleName
     private val mWidgetItems = mutableListOf<MovieFavorite>()
-    private val favorite = FavoriteService(context)
+    private val widgetPresenter = WidgetPresenter(context)
 
 
     override fun onCreate() {}
@@ -36,24 +36,19 @@ class StackRemoteViewsAdapter(
     override fun onDestroy() {}
 
     override fun onDataSetChanged() {
-        favorite.findAll(FilmType.MOVIE) {
-            mWidgetItems.addAll(it)
-        }
-
-        favorite.findAll(FilmType.TVSHOW) {
-            mWidgetItems.addAll(it)
-        }
+        mWidgetItems.clear()
+        mWidgetItems.addAll(widgetPresenter.getWidgetContent())
     }
 
     override fun getViewAt(position: Int): RemoteViews {
         val movie = mWidgetItems[position]
-        val rv = RemoteViews(context.packageName, com.yeputra.moviecatalogue.R.layout.widget_item)
+        val rv = RemoteViews(context.packageName, R.layout.widget_item)
 
         try {
             val imageUrl = URL(POSTER_URL + POSTER_MEDIUM + movie.poster_path)
             val bitmap = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
-            rv.setImageViewBitmap(com.yeputra.moviecatalogue.R.id.imageView, bitmap)
-            rv.setTextViewText(com.yeputra.moviecatalogue.R.id.tv_title, movie.origTitle)
+            rv.setImageViewBitmap(R.id.imageView, bitmap)
+            rv.setTextViewText(R.id.tv_title, movie.origTitle)
         } catch (e: Exception) {
             Log.e(TAG, e.message)
         }

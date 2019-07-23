@@ -7,8 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
-import com.yeputra.moviecatalogue.R
-import com.yeputra.moviecatalogue.job.JobFactory
 
 
 /**
@@ -16,42 +14,29 @@ import com.yeputra.moviecatalogue.job.JobFactory
  */
 class MovieWidgetProvider : AppWidgetProvider() {
     companion object {
-        private const val TOAST_ACTION = "com.yeputra.moviecatalogue.TOAST_ACTION"
-    }
-
-    override fun onEnabled(context: Context?) {
-        super.onEnabled(context)
-
-        context?.let {
-            JobFactory(context).startUpdateWidgetContent()
-        }
-    }
-
-    override fun onDisabled(context: Context?) {
-        super.onDisabled(context)
-
-        context?.let {
-            JobFactory(context).stopUpdateWidgetContent()
-        }
+        private const val ONCLICK = "com.yeputra.moviecatalogue.ONCLICK"
     }
 
     private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
 
+        /* Service Widget */
         val intent = Intent(context, StackWidgetService::class.java)
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
-        val views = RemoteViews(context.packageName, R.layout.movie_widget)
-        views.setRemoteAdapter(R.id.stack_view, intent)
-        views.setEmptyView(R.id.stack_view, R.id.empty_view)
+        /* Remote View */
+        val views = RemoteViews(context.packageName, com.yeputra.moviecatalogue.R.layout.movie_widget)
+        views.setRemoteAdapter(com.yeputra.moviecatalogue.R.id.stack_view, intent)
+        views.setEmptyView(com.yeputra.moviecatalogue.R.id.stack_view, com.yeputra.moviecatalogue.R.id.empty_view)
 
-        val toastIntent = Intent(context, MovieWidgetProvider::class.java)
-        toastIntent.action = TOAST_ACTION
-        toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+        /* Widget Provider */
+        val clickIntent = Intent(context, MovieWidgetProvider::class.java)
+        clickIntent.action = ONCLICK
+        clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
         intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
-        val toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)
+        val toastPendingIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        views.setPendingIntentTemplate(com.yeputra.moviecatalogue.R.id.stack_view, toastPendingIntent)
 
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
