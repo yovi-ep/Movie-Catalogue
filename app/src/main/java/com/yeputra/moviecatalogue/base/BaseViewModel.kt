@@ -1,10 +1,11 @@
 package com.yeputra.moviecatalogue.base
 
+import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.utils.RestClient
 import io.reactivex.disposables.Disposable
@@ -13,7 +14,7 @@ import org.json.JSONObject
 import retrofit2.HttpException
 import java.util.*
 
-abstract class BaseViewModel : ViewModel(), IBaseViewModel {
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application), IBaseViewModel {
     private val TAG = BaseViewModel::class.java.simpleName
 
     protected var subscriber: Disposable? = null

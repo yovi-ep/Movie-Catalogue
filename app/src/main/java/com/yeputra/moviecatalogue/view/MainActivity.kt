@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
@@ -82,7 +83,7 @@ class MainActivity : BaseToolbarActivity<MovieViewModel>(), ITabView {
     }
 
     override fun initViewModel(): MovieViewModel {
-        return MovieViewModel()
+        return ViewModelProviders.of(this).get(MovieViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

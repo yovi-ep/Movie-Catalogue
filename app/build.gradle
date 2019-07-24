@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -9,6 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -74,6 +76,10 @@ dependencies {
 
     /* Anko SQLite */
     implementation "org.jetbrains.anko:anko-sqlite:0.10.8"
+    implementation "androidx.room:room-runtime:2.1.0"
+    implementation "androidx.room:room-ktx:2.1.0"
+    kapt "androidx.room:room-compiler:2.1.0"
+    androidTestImplementation "androidx.room:room-testing:2.1.0"
 
     /* Job Dispatcher */
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'

@@ -1,5 +1,6 @@
 package com.yeputra.moviecatalogue.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yeputra.moviecatalogue.base.BaseViewModel
@@ -8,7 +9,7 @@ import com.yeputra.moviecatalogue.model.SearchResponse
 import com.yeputra.moviecatalogue.repository.api.ApiMovie
 import com.yeputra.moviecatalogue.utils.RxUtils
 
-class MovieViewModel : BaseViewModel() {
+class MovieViewModel(app: Application) : BaseViewModel(app) {
     private val movieLiveData = MutableLiveData<MovieResponse>()
     private val searchMovieLiveData = MutableLiveData<SearchResponse>()
 

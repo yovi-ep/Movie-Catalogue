@@ -13,12 +13,12 @@ import com.yeputra.moviecatalogue.base.ITabView
 import com.yeputra.moviecatalogue.model.VPager
 import com.yeputra.moviecatalogue.view.favorite.MovieFavoriteFm
 import com.yeputra.moviecatalogue.view.favorite.TVShowFavoriteFm
-import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
+import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModels
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
-class FavoriteFm : BaseFragment<FavoriteViewModel>() {
-    override fun initViewModel(): FavoriteViewModel =
-            ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+class FavoriteFm : BaseFragment<FavoriteViewModels>() {
+    override fun initViewModel(): FavoriteViewModels =
+            ViewModelProviders.of(this).get(FavoriteViewModels::class.java)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_favorite, container, false)

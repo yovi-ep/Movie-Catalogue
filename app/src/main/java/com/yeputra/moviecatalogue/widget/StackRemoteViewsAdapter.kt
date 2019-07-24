@@ -7,7 +7,8 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.model.MovieFavorite
-import com.yeputra.moviecatalogue.presenter.WidgetPresenter
+import com.yeputra.moviecatalogue.repository.storage.FavoriteRepository
+import com.yeputra.moviecatalogue.repository.storage.MyFavoriteDatabase
 import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_MEDIUM
 import com.yeputra.moviecatalogue.utils.Constans.Companion.POSTER_URL
 import java.net.URL
@@ -18,10 +19,12 @@ class StackRemoteViewsAdapter(
 ) : RemoteViewsService.RemoteViewsFactory {
     private val TAG = StackRemoteViewsAdapter::class.java.simpleName
     private val mWidgetItems = mutableListOf<MovieFavorite>()
-    private val widgetPresenter = WidgetPresenter(context)
+    private lateinit var favoriteRepository: FavoriteRepository
 
-
-    override fun onCreate() {}
+    override fun onCreate() {
+        val dao = MyFavoriteDatabase.getDatabase(context).favoriteDao()
+        favoriteRepository = FavoriteRepository(dao)
+    }
 
     override fun getLoadingView(): RemoteViews? = null
 
@@ -37,7 +40,8 @@ class StackRemoteViewsAdapter(
 
     override fun onDataSetChanged() {
         mWidgetItems.clear()
-        mWidgetItems.addAll(widgetPresenter.getWidgetContent())
+        favoriteRepository.allMovie.value?.let { mWidgetItems.addAll(it) }
+        favoriteRepository.allTVShow.value?.let { mWidgetItems.addAll(it) }
     }
 
     override fun getViewAt(position: Int): RemoteViews {

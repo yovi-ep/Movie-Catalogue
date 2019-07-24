@@ -13,13 +13,14 @@ import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.FilmType
+import com.yeputra.moviecatalogue.model.MovieFavorite
 import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
-import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
+import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModels
 import kotlinx.android.synthetic.main.fragment_movie.*
 
-class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
+class TVShowFavoriteFm : BaseFragment<FavoriteViewModels>() {
 
     private lateinit var adapter: MovieAdapter
     private var movieResponse : MovieResponse? = null
@@ -60,17 +61,18 @@ class TVShowFavoriteFm : BaseFragment<FavoriteViewModel>() {
         outState.putParcelable(Constans.INTENT_DATA, movieResponse)
     }
 
-    private fun loadData() = viewmodel?.getTvFavorite()?.observe(this, setTVShow)
+    private fun loadData() = viewmodel?.allTVShow?.observe(this, setTVShow)
 
-    private val setTVShow = Observer<MovieResponse> {
-        movieResponse = it.copy()
-        it.results?.let { it1 -> adapter.setItem(it1) }
+    private val setTVShow = Observer<MutableList<MovieFavorite>> {
+        val movie = viewmodel?.convertFavorite(it)
+        movieResponse = movie?.copy()
+        movie?.results?.let { it1 -> adapter.setItem(it1) }
         onHideProgressbar()
     }
 
-    override fun initViewModel(): FavoriteViewModel = ViewModelProviders
+    override fun initViewModel(): FavoriteViewModels = ViewModelProviders
             .of(this)
-            .get(FavoriteViewModel::class.java)
+            .get(FavoriteViewModels::class.java)
             .apply {
                 setupView(this@TVShowFavoriteFm)
             }

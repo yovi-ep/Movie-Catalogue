@@ -11,12 +11,13 @@ import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
+import com.yeputra.moviecatalogue.model.MovieFavorite
 import com.yeputra.moviecatalogue.utils.Constans
-import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModel
+import com.yeputra.moviecatalogue.viewmodel.FavoriteViewModels
 import com.yeputra.moviecatalogue.widget.MovieWidgetProvider
 import kotlinx.android.synthetic.main.activity_detail_movie.*
 import kotlinx.android.synthetic.main.app_bar.*
-class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
+class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModels>() {
 
     private lateinit var filmType: FilmType
 
@@ -63,18 +64,19 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
             } else {
                 viewmodel.add(movie, filmType)
             }
-            viewmodel.isFavorite(movie.id.toString()).observe(this, setFlagFavorite)
+            viewmodel.findOne(movie.id.toString())?.observe(this, setFlagFavorite)
             updateWidget()
         }
 
-        viewmodel.isFavorite(movie.id.toString()).observe(this, setFlagFavorite)
+       viewmodel.findOne(movie.id.toString())?.observe(this, setFlagFavorite)
     }
 
-    private val setFlagFavorite = Observer<Boolean> {
-        bt_favorite.tag = it
-        if (it) {
+    private val setFlagFavorite = Observer<MovieFavorite?> {
+        it?.let {
+            bt_favorite.tag = true
             bt_favorite.setImageResource(R.drawable.ic_favorite_selected)
-        } else {
+        }?: run {
+            bt_favorite.tag = false
             bt_favorite.setImageResource(R.drawable.ic_favorite_unselect)
         }
     }
@@ -90,8 +92,8 @@ class DetailMovieActivity : BaseToolbarActivity<FavoriteViewModel>() {
 
     override fun setButtonBack(): Boolean = true
 
-    override fun initViewModel(): FavoriteViewModel {
-        val vm = ViewModelProviders.of(this).get(FavoriteViewModel::class.java)
+    override fun initViewModel(): FavoriteViewModels {
+        val vm = ViewModelProviders.of(this).get(FavoriteViewModels::class.java)
         vm.setupView(this)
         return vm
     }

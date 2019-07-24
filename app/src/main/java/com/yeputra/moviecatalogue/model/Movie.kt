@@ -1,7 +1,10 @@
 package com.yeputra.moviecatalogue.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import com.yeputra.moviecatalogue.model.MovieFavorite.Companion.TABLE_NAME
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -25,8 +28,10 @@ data class Movie(
 ) : Parcelable
 
 @Parcelize
+@Entity(tableName = TABLE_NAME)
 data class MovieFavorite (
-        val id: String?,
+        @PrimaryKey
+        val id: String,
         val title: String?,
         val origTitle: String?,
         val overview: String?,
@@ -39,16 +44,6 @@ data class MovieFavorite (
 ) : Parcelable {
     companion object {
         const val TABLE_NAME = "FILM_FAVORITE"
-        const val FILM_ID = "_ID"
-        const val TITLE = "FAV_TITLE"
-        const val ORIG_TITLE = "FAV_ORIGTITLE"
-        const val OVERVIEW = "FAV_OVERVIEW"
-        const val ADULT = "FAV_ADULT"
-        const val POSTER = "FAV_POSTER"
-        const val BACKDROP = "FAV_BACKDROP"
-        const val RELEASE_DATE = "FAV_RELEASE_DATE"
-        const val RATE = "FAV_RATE"
-        const val TYPE = "FAV_TYPE"
     }
 }
 
