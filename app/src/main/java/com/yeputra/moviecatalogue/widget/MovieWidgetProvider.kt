@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.RemoteViews
+import com.yeputra.moviecatalogue.R
 
 
 /**
@@ -25,9 +26,9 @@ class MovieWidgetProvider : AppWidgetProvider() {
         intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
         /* Remote View */
-        val views = RemoteViews(context.packageName, com.yeputra.moviecatalogue.R.layout.movie_widget)
-        views.setRemoteAdapter(com.yeputra.moviecatalogue.R.id.stack_view, intent)
-        views.setEmptyView(com.yeputra.moviecatalogue.R.id.stack_view, com.yeputra.moviecatalogue.R.id.empty_view)
+        val views = RemoteViews(context.packageName, R.layout.movie_widget)
+        views.setRemoteAdapter(R.id.stack_view, intent)
+        views.setEmptyView(R.id.stack_view, R.id.empty_view)
 
         /* Widget Provider */
         val clickIntent = Intent(context, MovieWidgetProvider::class.java)
@@ -36,7 +37,7 @@ class MovieWidgetProvider : AppWidgetProvider() {
         intent.data = Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME))
 
         val toastPendingIntent = PendingIntent.getBroadcast(context, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        views.setPendingIntentTemplate(com.yeputra.moviecatalogue.R.id.stack_view, toastPendingIntent)
+        views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)
 
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
