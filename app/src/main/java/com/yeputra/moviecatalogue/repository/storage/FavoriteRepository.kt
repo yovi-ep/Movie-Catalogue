@@ -8,8 +8,8 @@ class FavoriteRepository(
         private val favoriteDao: FavoriteDao
 ) {
 
-    val allMovie = favoriteDao.findAll(FilmType.MOVIE.name)
-    val allTVShow = favoriteDao.findAll(FilmType.TVSHOW.name)
+    val allMovie: LiveData<MutableList<MovieFavorite>> = favoriteDao.findAll(FilmType.MOVIE.name)
+    val allTVShow: LiveData<MutableList<MovieFavorite>> = favoriteDao.findAll(FilmType.TVSHOW.name)
 
     fun add(favorite: MovieFavorite) {
         favoriteDao.add(favorite)
