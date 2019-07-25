@@ -1,11 +1,10 @@
 package com.yeputra.moviecatalogue.repository.contentprovider
 
-import android.database.Cursor
 import android.net.Uri
 import android.provider.BaseColumns
 
 object DatabaseContract {
-    const val AUTHORITY = "com.yeputra.moviecatalogue.database"
+    const val AUTHORITY = "com.yeputra.moviecatalogue"
     private const val SCHEME = "content"
 
     class FavoriteColumns : BaseColumns {
@@ -27,17 +26,5 @@ object DatabaseContract {
                     .appendPath(TABLE_NAME)
                     .build()
         }
-    }
-
-    fun getColumnString(cursor: Cursor, columnName: String): String {
-        return cursor.getString(cursor.getColumnIndex(columnName))
-    }
-
-    fun getColumnInt(cursor: Cursor, columnName: String): Int {
-        return cursor.getInt(cursor.getColumnIndex(columnName))
-    }
-
-    fun getColumnLong(cursor: Cursor, columnName: String): Long {
-        return cursor.getLong(cursor.getColumnIndex(columnName))
     }
 }

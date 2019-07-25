@@ -7,7 +7,7 @@ import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.model.MovieFavorite
 import com.yeputra.moviecatalogue.model.MovieResponse
-import com.yeputra.moviecatalogue.repository.storage.FavoriteService
+import com.yeputra.moviecatalogue.repository.contentprovider.FavoriteService
 
 class FavoriteViewModel : BaseViewModel() {
     private val movieLiveData = MutableLiveData<MovieResponse>()

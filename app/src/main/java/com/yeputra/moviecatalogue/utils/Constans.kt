@@ -8,8 +8,6 @@ interface Constans {
         const val POSTER_MEDIUM = "/w185/"
         const val POSTER_LARGE = "/w500/"
 
-        const val DB_FAVORITE = "MOVIE_DB"
-
         const val INTENT_DATA = "INTENT_DATA"
         const val INTENT_DATA_2 = "INTENT_DATA_2"
         const val INTENT_FRAGMENT = "INTENT_FRAGMENT"

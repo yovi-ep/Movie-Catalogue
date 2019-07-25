@@ -63,7 +63,7 @@ public class FavoriteHelper {
     public MovieFavorite queryById(String id) {
         Cursor cursor = providerQueryById(id);
         cursor.moveToFirst();
-       return getMovieFromCursor(cursor);
+        return getMovieFromCursor(cursor);
     }
 
     public long insert(MovieFavorite movie) {
@@ -88,7 +88,7 @@ public class FavoriteHelper {
                 null);
     }
 
-    public Cursor providerQuery(String type) {
+    private Cursor providerQuery(String type) {
         return database.query(DATABASE_TABLE
                 , null
                 , DatabaseContract.FavoriteColumns.TYPE + " = ?"
@@ -97,8 +97,19 @@ public class FavoriteHelper {
                 , null, DatabaseContract.FavoriteColumns._ID + " DESC"
                 , null);
     }
-    public Cursor providerQueryById(String id) {
-        return database.query(DATABASE_TABLE, null
+
+    Cursor providerQuery() {
+        return database.query(DATABASE_TABLE
+                , null
+                , null
+                , null
+                , null
+                , null, DatabaseContract.FavoriteColumns._ID + " DESC"
+                , null);
+    }
+    private Cursor providerQueryById(String id) {
+        return database.query(DATABASE_TABLE
+                , null
                 , DatabaseContract.FavoriteColumns._ID + " = ?"
                 , new String[]{id}
                 , null

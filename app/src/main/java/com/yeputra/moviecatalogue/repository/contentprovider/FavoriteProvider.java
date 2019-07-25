@@ -12,14 +12,12 @@ import androidx.annotation.Nullable;
 import static com.yeputra.moviecatalogue.repository.contentprovider.DatabaseContract.FavoriteColumns.TABLE_NAME;
 
 public class FavoriteProvider extends ContentProvider {
-    private static final int NOTE = 1;
-    private static final int NOTE_ID = 2;
+    private static final int MOVIE = 99;
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     private FavoriteHelper favoriteHelper;
 
     static {
-        sUriMatcher.addURI(DatabaseContract.AUTHORITY, TABLE_NAME + "/#", NOTE);
-        sUriMatcher.addURI(DatabaseContract.AUTHORITY, TABLE_NAME + "/#", NOTE_ID);
+        sUriMatcher.addURI(DatabaseContract.AUTHORITY, TABLE_NAME, MOVIE);
     }
 
     @Override
@@ -33,16 +31,10 @@ public class FavoriteProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         favoriteHelper.open();
         Cursor cursor;
-        switch (sUriMatcher.match(uri)) {
-            case NOTE:
-                cursor = favoriteHelper.providerQuery(uri.getLastPathSegment());
-                break;
-            case NOTE_ID:
-                cursor = favoriteHelper.providerQueryById(uri.getLastPathSegment());
-                break;
-            default:
-                cursor = null;
-                break;
+        if (sUriMatcher.match(uri) == MOVIE) {
+            cursor = favoriteHelper.providerQuery();
+        } else {
+            cursor = null;
         }
         return cursor;
     }

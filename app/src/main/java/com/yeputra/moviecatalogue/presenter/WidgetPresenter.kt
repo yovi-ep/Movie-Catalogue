@@ -3,7 +3,7 @@ package com.yeputra.moviecatalogue.presenter
 import android.content.Context
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieFavorite
-import com.yeputra.moviecatalogue.repository.storage.FavoriteService
+import com.yeputra.moviecatalogue.repository.contentprovider.FavoriteService
 
 class WidgetPresenter(val context: Context) {
     private val favoriteService = FavoriteService(context)
