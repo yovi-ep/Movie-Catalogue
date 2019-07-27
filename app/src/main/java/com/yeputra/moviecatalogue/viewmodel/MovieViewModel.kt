@@ -22,6 +22,16 @@ class MovieViewModel : BaseViewModel() {
         return movieLiveData
     }
 
+    fun searchMovie(query: String) : LiveData<SearchResponse> {
+        view?.onShowProgressbar()
+        subscriber = api<ApiMovie>()
+                .searchMovies(getLocale(), query)
+                .compose(RxUtils.applyObservableAsync())
+                .subscribe(onSuccess(), onFailed())
+
+        return searchMovieLiveData
+    }
+
     override fun onResponseSuccess(data: Any) {
         when (data) {
             is MovieResponse -> {

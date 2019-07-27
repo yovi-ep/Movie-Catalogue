@@ -16,6 +16,7 @@ import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
 import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieResponse
+import com.yeputra.moviecatalogue.model.SearchResponse
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.utils.Constans.Companion.CHANGE_LOCAL
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
@@ -54,27 +55,6 @@ class TVShowFm : BaseFragment<TVViewModel>() {
         restoreSaveInstanceState(savedInstanceState)
     }
 
-    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            movieResponse = it.getParcelable(Constans.INTENT_DATA)
-            movieResponse?.let { it2 ->
-                it2.results?.let { it1 -> adapter.setItem(it1) }
-            }
-        }?: run {
-            viewmodel?.getTVShow()?.observe(this, setTVShow)
-        }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(Constans.INTENT_DATA, movieResponse)
-    }
-
-    private val setTVShow = Observer<MovieResponse> {
-        movieResponse = it.copy()
-        it.results?.let { it1 -> adapter.setItem(it1) }
-    }
-
     override fun initViewModel(): TVViewModel {
         val vm = ViewModelProviders.of(this).get(TVViewModel::class.java)
         vm.setupView(this)
@@ -90,12 +70,26 @@ class TVShowFm : BaseFragment<TVViewModel>() {
                 .queryTextChanges(searchView)
                 .debounce(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .map {
-                    it.toString()
-                }
-                .subscribe {
-                    adapter.filter.filter(it)
-                }
+                .map {it.toString() }
+                .subscribe { doSearch(it) }
+    }
+
+    private fun doSearch(query: String) {
+        if (query.isEmpty()) {
+            viewmodel?.getTVShow()?.observe(this, setTVShow)
+        } else {
+            viewmodel?.searchTVShow(query)?.observe(this, setSearch)
+        }
+    }
+
+    private val setTVShow = Observer<MovieResponse> {
+        movieResponse = it.copy()
+        it.results?.let { it1 -> adapter.setItem(it1) }
+    }
+
+    private val setSearch = Observer<SearchResponse> {
+        movieResponse = MovieResponse(it.page, it.results, it.total_pages, it.total_results)
+        it.results?.let { data -> adapter.setItem(data) }
     }
 
     override fun onShowProgressbar() {
@@ -106,10 +100,19 @@ class TVShowFm : BaseFragment<TVViewModel>() {
         swiperefresh?.isRefreshing = false
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == CHANGE_LOCAL) {
+    private fun restoreSaveInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.let {
+            movieResponse = it.getParcelable(Constans.INTENT_DATA)
+            movieResponse?.let { it2 ->
+                it2.results?.let { it1 -> adapter.setItem(it1) }
+            }
+        }?: run {
             viewmodel?.getTVShow()?.observe(this, setTVShow)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(Constans.INTENT_DATA, movieResponse)
     }
 }
