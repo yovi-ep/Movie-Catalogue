@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jakewharton.rxbinding.widget.RxSearchView
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
@@ -18,16 +18,14 @@ import com.yeputra.moviecatalogue.model.FilmType
 import com.yeputra.moviecatalogue.model.MovieResponse
 import com.yeputra.moviecatalogue.model.SearchResponse
 import com.yeputra.moviecatalogue.utils.Constans
-import com.yeputra.moviecatalogue.utils.Constans.Companion.CHANGE_LOCAL
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.TVViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
-import rx.android.schedulers.AndroidSchedulers
-import java.util.concurrent.TimeUnit
 
 class TVShowFm : BaseFragment<TVViewModel>() {
     private lateinit var adapter: MovieAdapter
     private var movieResponse: MovieResponse? = null
+    private var tempQuery = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
@@ -64,18 +62,27 @@ class TVShowFm : BaseFragment<TVViewModel>() {
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         val mSearch = menu.findItem(R.id.menu_search)
-        val searchView = mSearch.actionView as android.widget.SearchView
+        val searchView = mSearch.actionView as SearchView
 
-        RxSearchView
-                .queryTextChanges(searchView)
-                .debounce(1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .map {it.toString() }
-                .subscribe { doSearch(it) }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { doSearch(it) }
+                return false
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query.isNullOrEmpty()) {
+                    if (query != tempQuery)
+                        doSearch(query)
+                }
+                return true
+            }
+        })
     }
 
-    private fun doSearch(query: String) {
-        if (query.isEmpty()) {
+    private fun doSearch(query: String?) {
+        tempQuery = query.toString()
+        if (query.isNullOrEmpty()) {
             viewmodel?.getTVShow()?.observe(this, setTVShow)
         } else {
             viewmodel?.searchTVShow(query)?.observe(this, setSearch)

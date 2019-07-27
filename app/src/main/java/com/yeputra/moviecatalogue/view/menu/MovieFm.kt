@@ -2,15 +2,12 @@ package com.yeputra.moviecatalogue.view.menu
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import com.jakewharton.rxbinding.widget.RxSearchView
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.adapter.MovieAdapter
 import com.yeputra.moviecatalogue.base.BaseFragment
@@ -22,13 +19,14 @@ import com.yeputra.moviecatalogue.utils.Constans.Companion.INTENT_DATA_2
 import com.yeputra.moviecatalogue.view.detail.DetailMovieActivity
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_movie.*
-import rx.android.schedulers.AndroidSchedulers
-import java.util.concurrent.TimeUnit
 
 class MovieFm : BaseFragment<MovieViewModel>() {
 
     private lateinit var adapter: MovieAdapter
     private var movieResponse: MovieResponse? = null
+    private var tempQuery = ""
+    private lateinit var searchView: SearchView
+    private lateinit var mSearch: MenuItem
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_movie, container, false)
@@ -63,20 +61,28 @@ class MovieFm : BaseFragment<MovieViewModel>() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val mSearch = menu.findItem(R.id.menu_search)
-        val searchView = mSearch.actionView as android.widget.SearchView
+        mSearch = menu.findItem(R.id.menu_search)
+        searchView = mSearch.actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { doSearch(it) }
+                return false
+            }
 
-        RxSearchView
-                .queryTextChanges(searchView)
-                .debounce(1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .map { it.toString() }
-                .subscribe { doSearch(it) }
+            override fun onQueryTextChange(query: String?): Boolean {
+                if (query.isNullOrEmpty()) {
+                    if (query != tempQuery)
+                        doSearch(query)
+                }
+                return true
+            }
+        })
         super.onPrepareOptionsMenu(menu)
     }
 
-    private fun doSearch(query: String) {
-        if (query.isEmpty()) {
+    private fun doSearch(query: String?) {
+        tempQuery = query.toString()
+        if (query.isNullOrEmpty()) {
             viewmodel?.getMovie()?.observe(this, setMovies)
         } else {
             viewmodel?.searchMovie(query)?.observe(this, setSearch)
