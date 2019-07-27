@@ -1,14 +1,14 @@
 package com.yeputra.moviecatalogue.job
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
 import com.yeputra.moviecatalogue.R
-import com.yeputra.moviecatalogue.job.JobFactory.Companion.ID_RELEASE_REMAINDER
 import com.yeputra.moviecatalogue.model.Movie
 import com.yeputra.moviecatalogue.repository.api.ApiMovie
-import com.yeputra.moviecatalogue.repository.preference.SettingPref
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.utils.NotifUtils
 import com.yeputra.moviecatalogue.utils.RestClient
@@ -18,61 +18,57 @@ import io.reactivex.disposables.Disposable
 import java.text.SimpleDateFormat
 import java.util.*
 
-class JobReleaseRemainder : JobService() {
+class JobReleaseRemainder : BroadcastReceiver() {
     private val TAG = JobReleaseRemainder::class.java.simpleName
     private var subsriber: Disposable? = null
+    private val ID_RELEASE_REMAINDER = 102
 
-    override fun onStartJob(job: JobParameters): Boolean {
-        Log.d(TAG, "started")
-        checkingRemainderTime(job)
-        return true
+    fun startReleaseRemainder(context: Context) {
+        Log.d(TAG, "startReleaseRemainder")
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, JobReleaseRemainder::class.java)
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, Constans.RELEASE_REMAINDER_TIME)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_REMAINDER, intent, 0)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
     }
 
-    override fun onStopJob(job: JobParameters): Boolean {
-        Log.d(TAG, "stopped")
-        subsriber?.dispose()
-        return true
+    fun stopReleaseRemainder(context: Context) {
+        Log.d(TAG, "stopReleaseRemainder")
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val intent = Intent(context, JobReleaseRemainder::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASE_REMAINDER, intent, 0)
+        pendingIntent.cancel()
+        alarmManager.cancel(pendingIntent)
     }
 
-    private fun checkingRemainderTime(job: JobParameters) {
-        val pref = SettingPref(applicationContext)
-        val cal = Calendar.getInstance()
+    override fun onReceive(context: Context?, intent: Intent?) {
+        context?.let { ctx ->
+            val date = Calendar.getInstance().time
+            val sDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
 
-        if (pref.releaseRemainder) {
-            if (cal.get(Calendar.HOUR_OF_DAY) == Constans.RELEASE_REMAINDER_TIME) {
-                if (!pref.isRemaindRelease) {
-                    pref.isRemaindRelease = true
-                    getReleaseMovie(cal.time)
-                }
-            } else {
-                pref.isRemaindRelease = false
-            }
-        }
-        jobFinished(job, false)
-    }
-
-    private fun getReleaseMovie(date: Date) {
-        val sDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date)
-
-        subsriber = RestClient()
-                .get()
-                .create(ApiMovie::class.java)
-                .getRelease(sDate, sDate, getLocale())
-                .compose(RxUtils.applyObservableAsync())
-                .subscribe {
-                    it.results?.forEach { movie ->
-                        sendNotification(movie)
+            subsriber = RestClient()
+                    .get()
+                    .create(ApiMovie::class.java)
+                    .getRelease(sDate, sDate, getLocale())
+                    .compose(RxUtils.applyObservableAsync())
+                    .subscribe {
+                        it.results?.forEach { movie ->
+                            sendNotification(ctx, movie)
+                        }
                     }
-                }
+        }
     }
 
-    private fun sendNotification(movie: Movie) {
+    private fun sendNotification(context: Context, movie: Movie) {
         movie.original_title?.let {
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            val msg = String.format(getString(R.string.release_remainder_msg, movie.original_title))
+            val intent = Intent(context, MainActivity::class.java)
+            val msg = String.format(context.getString(R.string.release_remainder_msg, movie.original_title))
 
             NotifUtils.showStackNotification(
-                    applicationContext,
+                    context,
                     it, msg,
                     ID_RELEASE_REMAINDER, intent
             )

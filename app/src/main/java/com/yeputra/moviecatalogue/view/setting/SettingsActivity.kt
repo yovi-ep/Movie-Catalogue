@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.yeputra.moviecatalogue.R
 import com.yeputra.moviecatalogue.base.BaseToolbarActivity
 import com.yeputra.moviecatalogue.job.JobDailyRemainder
-import com.yeputra.moviecatalogue.job.JobFactory
+import com.yeputra.moviecatalogue.job.JobReleaseRemainder
 import com.yeputra.moviecatalogue.repository.preference.SettingPref
 import com.yeputra.moviecatalogue.utils.Constans
 import com.yeputra.moviecatalogue.viewmodel.MovieViewModel
@@ -19,9 +19,8 @@ import java.util.*
 class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
     private lateinit var setting: SettingPref
-    private lateinit var remainderService: JobFactory
-    private lateinit var jobDailyRemainder: JobDailyRemainder
-
+    private lateinit var releaseRemainder: JobReleaseRemainder
+    private lateinit var dailyRemainder: JobDailyRemainder
     override fun setToolbar(): Toolbar = toolbar
 
     override fun setButtonBack(): Boolean = true
@@ -40,8 +39,8 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
     private fun setupData() {
         setting = SettingPref(this)
-        remainderService = JobFactory(this)
-        jobDailyRemainder = JobDailyRemainder()
+        releaseRemainder = JobReleaseRemainder()
+        dailyRemainder = JobDailyRemainder()
 
         toolbar_title.text = getString(R.string.menu_setting)
         sw_daily_remainder.isChecked = setting.dailyRemainder
@@ -60,22 +59,20 @@ class SettingsActivity : BaseToolbarActivity<MovieViewModel>() {
 
         sw_release_remainder.setOnCheckedChangeListener { _, isChecked ->
             setting.releaseRemainder = isChecked
-            setting.isRemaindRelease = false
 
             if (isChecked)
-                remainderService.startReleaseRemainder()
+                releaseRemainder.startReleaseRemainder(this)
             else
-                remainderService.stopReleaseRemainder()
+                releaseRemainder.stopReleaseRemainder(this)
         }
 
         sw_daily_remainder.setOnCheckedChangeListener { _, isChecked ->
             setting.dailyRemainder = isChecked
-            setting.isRemaindDaily = false
 
             if (isChecked)
-                remainderService.startDailyRemainder()
+                dailyRemainder.startDailyRemainder(this)
             else
-                remainderService.stopDailyRemainder()
+                dailyRemainder.stopDailyRemainder(this)
         }
 
         layout_language.setOnClickListener {

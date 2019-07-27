@@ -37,20 +37,16 @@
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <!-- Services -->
-        <service
+        <receiver
             android:name=".job.JobDailyRemainder"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-        <service
+            android:exported="false"
+            android:enabled="true">
+        </receiver>
+        <receiver
             android:name=".job.JobReleaseRemainder"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
+            android:exported="true"
+            android:enabled="true">
+        </receiver>
 
         <!-- Activity -->
         <activity android:name=".view.setting.SettingsActivity" />
